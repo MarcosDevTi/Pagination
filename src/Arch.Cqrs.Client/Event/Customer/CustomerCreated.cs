@@ -9,17 +9,17 @@ namespace Arch.Cqrs.Client.Event.Customer
     {
         public CustomerCreated() { }
         public CustomerCreated(
-            Guid id,
+            Guid? id,
             string firstName,
             string lastName,
             string email,
-            DateTime birthDate,
+            string birthDate,
             string street,
             string number,
             string city,
             string zipCode)
         {
-            Id = id;
+            Id = id ?? Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -28,13 +28,13 @@ namespace Arch.Cqrs.Client.Event.Customer
             Number = number;
             City = city;
             ZipCode = zipCode;
-            AggregateId = id;
+            AggregateId = Id;
         }
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         public string Street { get; set; }
         public string Number { get; set; }
@@ -45,11 +45,11 @@ namespace Arch.Cqrs.Client.Event.Customer
             cfg.CreateMap<CreateCustomer, CustomerCreated>()
                 .ConstructUsing(
                     x => new CustomerCreated(
-                        x.Id.Value,
+                        Id = Guid.NewGuid(),
                         x.FirstName,
                         x.LastName,
                         x.Email,
-                        x.BirthDate,
+                        x.BirthDate.ToString(),
                         x.Street,
                         x.Number,
                         x.City,

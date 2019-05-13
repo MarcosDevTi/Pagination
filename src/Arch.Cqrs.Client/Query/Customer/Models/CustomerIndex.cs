@@ -1,5 +1,6 @@
 ﻿using System;
 using Arch.Cqrs.Client.AutoMapper;
+using Arch.Domain.ValueObjects;
 using AutoMapper;
 
 namespace Arch.Cqrs.Client.Query.Customer.Models
@@ -22,9 +23,6 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
         public void Map(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Domain.Models.Customer, CustomerIndex>()
-                .ForMember(d => d.FirstName, o => o.MapFrom(s => s.Name.FirstName))
-                .ForMember(d => d.LastName, o => o.MapFrom(s => s.Name.LastName))
-                .ForMember(d => d.Email, o => o.MapFrom(s => s.Email.EmailAddress))
                 .ForMember(d => d.Street, o => o.MapFrom(s => s.Address.Street))
                 .ForMember(d => d.Number, o => o.MapFrom(s => s.Address.Number))
                 .ForMember(d => d.City, o => o.MapFrom(s => s.Address.City))
@@ -32,8 +30,7 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
 
             cfg.CreateMap<CustomerIndex, Domain.Models.Customer>()
                 .ConstructUsing(x => new Domain.Models.Customer(
-                    x.FirstName, x.LastName, x.Email, x.BirthDate, x.Street,
-                    x.Number, x.City, x.ZipCode));
+                    x.FirstName, x.LastName, x.Email, x.BirthDate, new Address(x.Street, x.Number, x.City, x.ZipCode)));
 
         }
     }

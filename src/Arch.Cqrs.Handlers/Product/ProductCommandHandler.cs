@@ -33,7 +33,7 @@ namespace Arch.Cqrs.Handlers.Product
             if (Db().Any(x => x.Name == customer.Name))
             {
                 AddNotification(new DomainNotification(
-                    command.MessageType, "The Product Name has already been taken."));
+                    command.Action, "The Product Name has already been taken."));
                 return;
             }
 

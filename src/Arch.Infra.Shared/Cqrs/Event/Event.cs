@@ -4,11 +4,14 @@ namespace Arch.Infra.Shared.Cqrs.Event
 {
     public abstract class Event : Message
     {
-        public DateTime Timestamp { get; private set; }
+        public string When { get; set; }
+        
 
         protected Event()
         {
-            Timestamp = DateTime.Now;
+            When = DateTime.Now.ToString();
         }
     }
+
+    
 }

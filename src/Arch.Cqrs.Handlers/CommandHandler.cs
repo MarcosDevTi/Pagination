@@ -1,6 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
+using Arch.Cqrs.Client.Command.Customer;
 using Arch.Domain.Core;
 using Arch.Domain.Core.DomainNotifications;
+using Arch.Domain.Core.Event;
 using Arch.Domain.Event;
 using Arch.Infra.Data;
 using Arch.Infra.Shared.Cqrs.Command;
@@ -27,22 +33,47 @@ namespace Arch.Cqrs.Handlers
         {
             if (cmd.IsValid()) return;
             foreach (var error in cmd.ValidationResult.Errors)
-                AddNotification(new DomainNotification(cmd.MessageType, error.ErrorMessage));
+                AddNotification(new DomainNotification(cmd.Action, error.ErrorMessage));
         }
 
         protected void Commit(Event evet)
         {
+
+
             if (_notifications.HasNotifications()) return;
             if (_architectureContext.SaveChanges() > 0)
+            {
+                var anterior = _eventRepository.GetLastEvent(evet.AggregateId);
+                var objJson = anterior != null ? ReadToObject(((StoredEvent)anterior).Data, ((StoredEvent)anterior).Assembly) : null;
+                _eventRepository.Save(evet, objJson);
 
-                _eventRepository.Save(evet);
+                
+            }
+
+            
             else
             AddNotification(new DomainNotification("Commit", "We had a problem during saving your data."));
         }
 
+        
         protected void AddNotification(DomainNotification notification)
         {
             _notifications.Add(notification);
+        }
+
+
+        public static object ReadToObject(string json, string typeP)
+        {
+            var asm = typeof(CreateCustomer).Assembly;
+            var type = asm.GetType(typeP);
+
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
+            var ser = new DataContractJsonSerializer(type);
+            var res = ser.ReadObject(ms) as object;
+            ms.Close();
+
+            Convert.ChangeType(res, type);
+            return res;
         }
     }
 }

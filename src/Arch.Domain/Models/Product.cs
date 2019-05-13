@@ -11,7 +11,7 @@ namespace Arch.Domain.Models
         }
         public Product(string name, string description, decimal price, Guid? id = null)
         {
-            Id = id == null ? Guid.Empty : Id;
+            GetId(Id);
             Name = name;
             Description = description;
             Price = price;

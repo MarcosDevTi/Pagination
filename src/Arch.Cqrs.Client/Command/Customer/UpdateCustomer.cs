@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Security.Permissions;
 using Arch.Cqrs.Client.AutoMapper;
 using Arch.Cqrs.Client.Command.Customer.Validation;
+using Arch.Domain.ValueObjects;
 using AutoMapper;
 
 namespace Arch.Cqrs.Client.Command.Customer
@@ -11,7 +13,10 @@ namespace Arch.Cqrs.Client.Command.Customer
         {
 
         }
-        public UpdateCustomer(Guid id, string firstName, string lastName, string email, DateTime birthDate, string street, string number, string city, string zipCode)
+        public Guid Id { get; set; }
+        public UpdateAddress UpdateAddress { get; set; }
+        public UpdateCustomer(Guid id, string firstName, string lastName, string email, DateTime birthDate, 
+            string street, string number, string city, string zipCode)
         {
             Id = id;
             FirstName = firstName;
@@ -22,6 +27,7 @@ namespace Arch.Cqrs.Client.Command.Customer
             Number = number;
             City = city;
             ZipCode = zipCode;
+            AggregateId = id;
         }
 
         public override bool IsValid()
@@ -38,11 +44,9 @@ namespace Arch.Cqrs.Client.Command.Customer
                     c.LastName,
                     c.Email,
                     c.BirthDate,
-                    c.Street,
-                    c.Number,
-                    c.City,
-                    c.ZipCode,
-                    c.Id))
+                    Mapper.Map<Address>(c.UpdateAddress),
+                    c.Id
+                    ))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
         }
     }

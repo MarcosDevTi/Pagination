@@ -4,11 +4,11 @@
     {
         public UpdateCustomerValidation()
         {
-            ValidateId();
+            //ValidateId();
             ValidateFirstName();
             ValidateLastName();
             ValidateBirthDate();
-            ValidateEmail();
+            //ValidateEmail();
         }
     }
 }

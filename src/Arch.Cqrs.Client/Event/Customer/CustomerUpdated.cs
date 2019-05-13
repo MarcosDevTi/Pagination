@@ -8,9 +8,11 @@ namespace Arch.Cqrs.Client.Event.Customer
     public class CustomerUpdated : Infra.Shared.Cqrs.Event.Event, ICustomMapper
     {
         public CustomerUpdated() { }
-        public CustomerUpdated(Guid id, string firstName, string lastName, string email, DateTime birthDate, string street, string number, string city, string zipCode)
+        public CustomerUpdated(
+            Guid iggregateId, string firstName, string lastName, string email, string birthDate,
+            string street, string number, string city, string zipCode)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -19,13 +21,13 @@ namespace Arch.Cqrs.Client.Event.Customer
             Number = number;
             City = city;
             ZipCode = zipCode;
-            AggregateId = id;
+            AggregateId = iggregateId;
         }
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         public string Street { get; set; }
         public string Number { get; set; }
@@ -33,17 +35,17 @@ namespace Arch.Cqrs.Client.Event.Customer
         public string ZipCode { get; set; }
         public void Map(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<UpdateCustomer, Domain.Models.Customer>()
-                .ConstructUsing(x => new Domain.Models.Customer(
+            cfg.CreateMap<UpdateCustomer, CustomerUpdated>()
+                .ConstructUsing(x => new CustomerUpdated(
+                    x.Id,
                 x.FirstName,
                     x.LastName,
                     x.Email,
-                    x.BirthDate,
+                    x.BirthDate.ToString(),
                     x.Street,
                     x.Number,
                     x.City,
-                    x.ZipCode,
-                    x.Id))
+                    x.ZipCode))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
         }
     }

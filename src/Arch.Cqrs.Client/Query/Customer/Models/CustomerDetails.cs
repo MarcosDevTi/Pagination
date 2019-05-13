@@ -39,9 +39,6 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
         public void Map(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Domain.Models.Customer, CustomerDetails>()
-                .ForMember(d => d.FirstName, o => o.MapFrom(s => s.Name.FirstName))
-                .ForMember(d => d.LastName, o => o.MapFrom(s => s.Name.LastName))
-                .ForMember(d => d.Email, o => o.MapFrom(s => s.Email.EmailAddress))
                 .ForMember(d => d.Street, o => o.MapFrom(s => s.Address.Street))
                 .ForMember(d => d.Number, o => o.MapFrom(s => s.Address.Number))
                 .ForMember(d => d.City, o => o.MapFrom(s => s.Address.City))

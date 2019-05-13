@@ -7,10 +7,10 @@ namespace Arch.Infra.Data.Maps.EventSourcing
     {
         public StoredEventMap()
         {
-            Property(c => c.Timestamp)
-                .HasColumnName("CreationDate");
+            Property(c => c.When)
+                .HasColumnName("When");
 
-            Property(c => c.MessageType)
+            Property(c => c.Action)
                 .HasColumnName("Action")
                 .HasColumnType("varchar(100)");
         }

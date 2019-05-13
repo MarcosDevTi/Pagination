@@ -6,7 +6,6 @@ namespace Arch.Cqrs.Client.Command.Customer
 {
     public abstract class CustomerCommand : Infra.Shared.Cqrs.Command.Command
     {
-        public Guid? Id { get; set; }
         [Required(ErrorMessage = "The FirstName is Required")]
         [MinLength(2)]
         [MaxLength(100)]

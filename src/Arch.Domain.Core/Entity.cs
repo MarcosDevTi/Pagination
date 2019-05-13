@@ -5,6 +5,7 @@ namespace Arch.Domain.Core
     public abstract class Entity
     {
         public Guid Id { get; protected set; }
+        public Guid GetId(Guid? id) => id ?? Guid.NewGuid();
 
         public override bool Equals(object obj)
         {

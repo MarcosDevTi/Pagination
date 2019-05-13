@@ -12,6 +12,7 @@ using Arch.Domain.Event;
 using Arch.Infra.Data;
 using Arch.Infra.Data.EventSourcing;
 using Arch.Infra.Shared.Cqrs;
+using Arch.Infra.Shared.Cqrs.Event;
 using Arch.Infra.Shared.Cqrs.Extentions;
 using SimpleInjector;
 
@@ -33,6 +34,7 @@ namespace Arch.Infra.IoC
             container.Register<IDomainNotification, DomainNotificationHandler>(Lifestyle.Scoped);
             container.Register<IEventRepository, EventRespoitory>(Lifestyle.Transient);
             container.Register<IUser, User>();
+
         }
     }
 }

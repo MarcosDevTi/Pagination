@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Arch.Cqrs.Client.Command.Customer;
 using Arch.Cqrs.Client.Event.Customer;
@@ -15,11 +16,14 @@ namespace Arch.Cqrs.Handlers.Customer
         ICommandHandler<UpdateCustomer>,
         ICommandHandler<DeleteCustomer>
     {
+        private readonly ArchDbContext _architectureContext;
+
         public CustomerCommandHandler(
             ArchDbContext architectureContext,
             IDomainNotification notifications,
             IEventRepository eventRepository) : base(architectureContext, notifications, eventRepository)
         {
+            _architectureContext = architectureContext;
         }
 
         public void Handle(CreateCustomer command)
@@ -32,12 +36,12 @@ namespace Arch.Cqrs.Handlers.Customer
             if (Db().Any(x => x.Email == customer.Email))
             {
                 AddNotification(new DomainNotification(
-                    command.MessageType, "The customer e-mail has already been taken."));
+                    command.Action, "The customer e-mail has already been taken."));
                 return;
             }
 
             Db().Add(customer);
-
+            command.AggregateId = customer.Id;
             Commit(Mapper.Map<CustomerCreated>(command));
         }
 
@@ -48,16 +52,18 @@ namespace Arch.Cqrs.Handlers.Customer
             //exists
 
             ValidateCommand(command);
+            command.AggregateId = command.Id;
 
             var customer = Mapper.Map<Domain.Models.Customer>(command);
-            var existingCustomer = Db().Any(x => x.Email == customer.Email);
+            var existingCustomer = Db().Any(x => x.Email == customer.Email && x.Id != command.Id);
 
             if (existingCustomer)
             {
-                AddNotification(new DomainNotification(command.MessageType, "The customer e-mail has already been taken."));
+                AddNotification(new DomainNotification(command.Action, "The customer e-mail has already been taken."));
             }
 
-            //Db().Update(customer);
+            _architectureContext.Entry(customer).State = EntityState.Modified;
+            var teste = Mapper.Map<CustomerUpdated>(command);
 
             Commit(Mapper.Map<CustomerUpdated>(command));
         }
@@ -66,8 +72,8 @@ namespace Arch.Cqrs.Handlers.Customer
         {
             ValidateCommand(command);
 
-            Db().Remove(GetById(command.Id.Value));
-            Commit(new CustomerDeleted(command.Id.Value));
+            Db().Remove(GetById(command.Id));
+            Commit(new CustomerDeleted(command.Id));
         }
 
         private Domain.Models.Customer GetById(Guid id) => Db().Find(id);

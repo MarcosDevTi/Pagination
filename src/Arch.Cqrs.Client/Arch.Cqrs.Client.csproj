@@ -63,6 +63,7 @@
     <Compile Include="Command\Customer\CreateCustomer.cs" />
     <Compile Include="Command\Customer\CustomerCommand.cs" />
     <Compile Include="Command\Customer\DeleteCustomer.cs" />
+    <Compile Include="Command\Customer\UpdateAddress.cs" />
     <Compile Include="Command\Customer\UpdateCustomer.cs" />
     <Compile Include="Command\Customer\Validation\CreateCustomerValidation.cs" />
     <Compile Include="Command\Customer\Validation\CustomerCommandValidation.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Query\Customer\Models\CustomerHistory.cs" />
     <Compile Include="Query\Customer\Models\CustomerIndex.cs" />
     <Compile Include="Query\Customer\Queries\GetCustomerDetails.cs" />
+    <Compile Include="Query\Customer\Queries\GetCustomerHistory.cs" />
     <Compile Include="Query\Customer\Queries\GetCustomersIndex.cs" />
     <Compile Include="Query\OrderItem\Models\Cart.cs" />
     <Compile Include="Query\OrderItem\Models\OrderItemIndex.cs" />
@@ -123,6 +125,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Arch.Domain.Core\Arch.Domain.Core.csproj">
+      <Project>{30952E6D-E21F-4220-8B49-F98D4BF94781}</Project>
+      <Name>Arch.Domain.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arch.Domain\Arch.Domain.csproj">
       <Project>{EA654623-1A05-4BF9-AE8F-70A3EE5B8931}</Project>
       <Name>Arch.Domain</Name>

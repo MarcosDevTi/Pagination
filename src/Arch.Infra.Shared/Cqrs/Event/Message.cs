@@ -3,15 +3,16 @@ using Arch.Infra.Shared.Cqrs.Command;
 
 namespace Arch.Infra.Shared.Cqrs.Event
 {
-    public class Message : ICommand
+    public class Message: ICommand
     {
         public Message()
         {
-            MessageType = GetType().Name;
+            Action = GetType().Name;
 
         }
 
-        public string MessageType { get; protected set; }
-        public Guid AggregateId { get; protected set; }
+        public string Action { get; protected set; }
+        public Guid AggregateId { get; set; }
+        public string Who { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Arch.Domain.Models
         }
         public OrderItem(Product product)
         {
+            GetId(Id);
             Product = product;
             Qtd = 1;
         }

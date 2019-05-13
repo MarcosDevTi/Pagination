@@ -53,7 +53,7 @@ namespace Arch.Domain.Event
                 var slot = new CustomerHistoryData();
                 dynamic values;
 
-                switch (e.MessageType)
+                switch (e.Action)
                 {
                     case "CustomerCreated":
                         values = JsonConvert.DeserializeObject<dynamic>(e.Data);

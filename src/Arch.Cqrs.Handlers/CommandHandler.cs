@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using Arch.Cqrs.Client.Command.Customer;
@@ -43,8 +44,12 @@ namespace Arch.Cqrs.Handlers
             if (_notifications.HasNotifications()) return;
             if (_architectureContext.SaveChanges() > 0)
             {
+                
+                
                 var anterior = _eventRepository.GetLastEvent(evet.AggregateId);
-                var objJson = anterior != null ? ReadToObject(((StoredEvent)anterior).Data, ((StoredEvent)anterior).Assembly) : null;
+                var objJson = anterior != null
+                    ? ReadToObject(((StoredEvent) anterior).Data, ((StoredEvent) anterior).Assembly)
+                    : null;
                 _eventRepository.Save(evet, objJson);
 
                 

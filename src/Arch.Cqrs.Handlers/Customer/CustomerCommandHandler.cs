@@ -42,6 +42,7 @@ namespace Arch.Cqrs.Handlers.Customer
 
             Db().Add(customer);
             command.AggregateId = customer.Id;
+
             Commit(Mapper.Map<CustomerCreated>(command));
         }
 

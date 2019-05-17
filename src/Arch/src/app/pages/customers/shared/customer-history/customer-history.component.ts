@@ -18,14 +18,25 @@ export class CustomerHistoryComponent implements OnInit {
 
   displayedColumns: string[];
   columnsToDisplay: string[];
-
+  valores: KeyValue[]
   ngOnInit() {
     this.customerService.getHistory(this.customerId).subscribe(
       events => {
         this.events = events.filter(x => delete x['id'])
 
+
         this.displayedColumns = Object.keys(this.events[0])
         this.columnsToDisplay = Object.keys(this.events[0])
+
+        events.forEach(element => {
+          this.displayedColumns.forEach(c => {
+
+            console.log(c, element[c])
+            //this.valores.push(c, element[c]);
+          })
+      });
+
+        console.log(this.valores);
       },
       error => console.log(error.map)
     );
@@ -33,6 +44,15 @@ export class CustomerHistoryComponent implements OnInit {
 
   ativarSegundaTabela(id) {
 
-
   }
+}
+
+export class KeyValue
+{
+  constructor(id, value) {
+    this.id = id;
+    this.value = value;
+  }
+  id: string;
+  value: string;
 }

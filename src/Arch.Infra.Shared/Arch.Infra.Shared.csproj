@@ -63,6 +63,11 @@
     <Compile Include="Cqrs\IProcessor.cs" />
     <Compile Include="Cqrs\Query\IQuery.cs" />
     <Compile Include="Cqrs\Query\IQueryHandler.cs" />
+    <Compile Include="EventSourcing\EventSourceExtensions.cs" />
+    <Compile Include="EventSourcing\EventTest.cs" />
+    <Compile Include="EventSourcing\SourceFluent.cs" />
+    <Compile Include="EventSourcing\SourceTypeBuilder.cs" />
+    <Compile Include="EventSourcing\test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

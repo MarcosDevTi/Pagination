@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Arch.Infra.Shared.Cqrs.Event
 {
@@ -11,6 +14,8 @@ namespace Arch.Infra.Shared.Cqrs.Event
         {
             When = DateTime.Now.ToString();
         }
+
+        
     }
 
     

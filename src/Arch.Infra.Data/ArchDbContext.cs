@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Arch.Infra.Data
     {
         public ArchDbContext():base("DefaultConnection")
         {
-            
+            Database.Log = sql => Debug.Write(sql);
         }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -26,7 +27,5 @@ namespace Arch.Infra.Data
         //{
            
         //}
-
-
     }
 }

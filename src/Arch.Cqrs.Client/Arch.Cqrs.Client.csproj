@@ -89,6 +89,7 @@
     <Compile Include="Command\Product\Validation\UpdateProductValidation.cs" />
     <Compile Include="Event\Customer\CustomerCreated.cs" />
     <Compile Include="Event\Customer\CustomerDeleted.cs" />
+    <Compile Include="Event\Customer\CustomerEventMap.cs" />
     <Compile Include="Event\Customer\CustomerUpdated.cs" />
     <Compile Include="Event\OrderItem\OrderItemCreated.cs" />
     <Compile Include="Event\OrderItem\OrderItemDeleted.cs" />

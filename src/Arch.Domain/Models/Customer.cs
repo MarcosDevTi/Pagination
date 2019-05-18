@@ -8,7 +8,7 @@ namespace Arch.Domain.Models
 {
     public class Customer : Entity
     {
-        protected Customer() { } // Empty constructor for EF
+        public Customer() { } // Empty constructor for EF
         public Customer(
             string firstName,
             string lastName,

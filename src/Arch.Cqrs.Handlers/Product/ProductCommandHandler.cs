@@ -18,10 +18,10 @@ namespace Arch.Cqrs.Handlers.Product
         public ProductCommandHandler(
             ArchDbContext architectureContext,
             IDomainNotification notifications,
-            IEventRepository eventRepository) : base(architectureContext, notifications, eventRepository)
+            IEventRepository eventRepository,
+            EventSourcingContext eventSourcingContext) : base(architectureContext, notifications, eventRepository, eventSourcingContext)
         {
         }
-
 
         public void Handle(CreateProduct command)
         {

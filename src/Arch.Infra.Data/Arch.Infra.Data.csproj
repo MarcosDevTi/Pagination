@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ArchDbContext.cs" />
     <Compile Include="EventSourcingContext.cs" />
+    <Compile Include="EventSourcing\EventEntity.cs" />
     <Compile Include="EventSourcing\EventRespoitory.cs" />
     <Compile Include="Maps\CustomerMap.cs" />
     <Compile Include="Maps\EventSourcing\StoredEventMap.cs" />

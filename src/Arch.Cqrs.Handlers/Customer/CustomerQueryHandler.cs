@@ -15,6 +15,7 @@ using Arch.Domain.Event;
 using Arch.Infra.Data;
 using Arch.Infra.Shared.Cqrs.Event;
 using Arch.Infra.Shared.Cqrs.Query;
+using Arch.Infra.Shared.EventSourcing;
 using AutoMapper;
 
 namespace Arch.Cqrs.Handlers.Customer
@@ -78,5 +79,7 @@ namespace Arch.Cqrs.Handlers.Customer
             Convert.ChangeType(res, type);
             return res;
         }
+
+        
     }
 }

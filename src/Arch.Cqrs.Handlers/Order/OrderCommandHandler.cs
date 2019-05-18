@@ -16,7 +16,12 @@ namespace Arch.Cqrs.Handlers.Order
         private readonly ArchDbContext _architectureContext;
         private readonly IUser _user;
 
-        public OrderCommandHandler(ArchDbContext architectureContext, IDomainNotification notifications, IEventRepository eventRepository, IUser user) : base(architectureContext, notifications, eventRepository)
+        public OrderCommandHandler(
+            ArchDbContext architectureContext, 
+            IDomainNotification notifications, 
+            IEventRepository eventRepository, 
+            IUser user,
+            EventSourcingContext eventSourcingContext) : base(architectureContext, notifications, eventRepository, eventSourcingContext)
         {
             _architectureContext = architectureContext;
             _user = user;

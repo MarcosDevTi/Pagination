@@ -36,6 +36,26 @@ namespace Arch.Domain.Core.Event
             Assembly = theEvent.GetType().FullName;
         }
 
+        //public EntityEvent(Entity entity, string user)
+        //{
+        //    var theEvent = new Entity();
+        //    theEvent.When = DateTime.Now.ToString();
+        //    theEvent.Who = user;
+        //    Id = Guid.NewGuid();
+        //    AggregateId = theEvent.AggregateId;
+        //    Action = theEvent.Action;
+
+        //    var ignoredMembers = GetAttributs(theEvent).Select(_ => _.Name);
+        //    var eventSerialized = JsonConvert.SerializeObject(theEvent);
+        //    var jo = JObject.Parse(eventSerialized);
+        //    ignoredMembers.ToList().ForEach(_ => jo.Property(_).Remove());
+        //    var jsonData = jo.ToString();
+
+        //    Data = jsonData;
+        //    User = user;
+        //    Assembly = theEvent.GetType().FullName;
+        //}
+
         public List<MemberInfo> GetAttributs(object obj)
         {
             var tipoGen = typeof(SourceFluent<>).MakeGenericType(obj.GetType());

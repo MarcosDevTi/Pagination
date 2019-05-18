@@ -55,6 +55,7 @@
     <Compile Include="Event\CustomerHistoryHelper.cs" />
     <Compile Include="Event\IEventRepository.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerMapSource.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Product.cs" />

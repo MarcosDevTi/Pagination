@@ -15,18 +15,13 @@ namespace Arch.Cqrs.Client.Command.Customer
         }
         public Guid Id { get; set; }
         public UpdateAddress UpdateAddress { get; set; }
-        public UpdateCustomer(Guid id, string firstName, string lastName, string email, DateTime birthDate, 
-            string street, string number, string city, string zipCode)
+        public UpdateCustomer(Guid id, string firstName, string lastName, string email, DateTime birthDate)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             BirthDate = birthDate;
-            Street = street;
-            Number = number;
-            City = city;
-            ZipCode = zipCode;
             AggregateId = id;
         }
 
@@ -44,7 +39,6 @@ namespace Arch.Cqrs.Client.Command.Customer
                     c.LastName,
                     c.Email,
                     c.BirthDate,
-                    Mapper.Map<Address>(c.UpdateAddress),
                     c.Id
                     ))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();

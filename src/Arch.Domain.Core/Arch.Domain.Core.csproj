@@ -51,6 +51,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="Event\StoredEvent.cs" />
     <Compile Include="IUser.cs" />
+    <Compile Include="MinDateTimeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

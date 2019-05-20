@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Reflection;
-using Arch.Cqrs.Client.Command.Customer;
+﻿using Arch.Cqrs.Client.Command.Customer;
 using Arch.Cqrs.Client.Event.Customer;
 using Arch.Domain.Core.DomainNotifications;
 using Arch.Domain.Event;
 using Arch.Infra.Data;
 using Arch.Infra.Shared.Cqrs.Command;
-using Arch.Infra.Shared.EventSourcing;
 using AutoMapper;
+using System;
+using System.Data.Entity.Migrations;
+using System.Linq;
 
 namespace Arch.Cqrs.Handlers.Customer
 {
@@ -32,7 +29,7 @@ namespace Arch.Cqrs.Handlers.Customer
 
         public void Handle(CreateCustomer command)
         {
-            
+
             ValidateCommand(command);
 
             var customer = Mapper.Map<Domain.Models.Customer>(command);
@@ -45,14 +42,10 @@ namespace Arch.Cqrs.Handlers.Customer
                 return;
             }
 
-            Db().Add(customer);
+            var action = _architectureContext.Add(customer);
             command.AggregateId = customer.Id;
 
-            //Commit(Mapper.Map<CustomerCreated>(command));
-           
-
-           
-            Commit(command, customer);
+            Commit(customer, action);
         }
 
         public void Handle(UpdateCustomer command)
@@ -72,22 +65,24 @@ namespace Arch.Cqrs.Handlers.Customer
                 AddNotification(new DomainNotification(command.Action, "The customer e-mail has already been taken."));
             }
 
-            _architectureContext.Entry(customer).State = EntityState.Modified;
+            var lastEntity = _architectureContext.Customers.AsNoTracking().OrderBy(_ => _.CreatedDate)
+                .FirstOrDefault(_ => _.Id == command.Id);
 
+            var action = _architectureContext.Update(customer);
 
-            Commit(Mapper.Map<CustomerUpdated>(command));
+            Commit(customer, action, lastEntity);
         }
 
         public void Handle(DeleteCustomer command)
         {
             ValidateCommand(command);
-
+            Db().AddOrUpdate();
             Db().Remove(GetById(command.Id));
             Commit(new CustomerDeleted(command.Id));
         }
 
         private Domain.Models.Customer GetById(Guid id) => Db().Find(id);
 
-       
+
     }
 }

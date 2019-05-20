@@ -8,6 +8,7 @@ namespace Arch.Domain.ValueObjects
         public Address(string street, string number, string city, string zipCode, Guid? id = null)
         {
             Id = id ?? Guid.NewGuid();
+            //CreatedDate = DateTime.Now;
             Street = street;
             Number = number;
             City = city;

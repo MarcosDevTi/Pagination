@@ -30,7 +30,7 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
 
             cfg.CreateMap<CustomerIndex, Domain.Models.Customer>()
                 .ConstructUsing(x => new Domain.Models.Customer(
-                    x.FirstName, x.LastName, x.Email, x.BirthDate, new Address(x.Street, x.Number, x.City, x.ZipCode)));
+                    x.FirstName, x.LastName, x.Email, x.BirthDate));
 
         }
     }

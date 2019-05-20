@@ -7,6 +7,9 @@ namespace Arch.Infra.Data.Maps
     {
         public CustomerMap()
         {
+            //Property(_ => _.BirthDate).HasColumnType("datetime2");
+            //Property(_ => _.CreatedDate).HasColumnType("datetime2");
+            
             //builder.OwnsOne(s => s.Name, cm =>
             //{
             //    cm.Property(n => n.FirstName)

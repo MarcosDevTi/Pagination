@@ -36,6 +36,4 @@ namespace Arch.Infra.Shared.EventSourcing
 
         public abstract void Configuration(SourceFluent<T> builder);
     }
-
-
 }

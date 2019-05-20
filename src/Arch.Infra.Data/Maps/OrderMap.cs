@@ -7,6 +7,7 @@ namespace Arch.Infra.Data.Maps
     {
         public OrderMap()
         {
+           // Property(_ => _.CreatedDate).HasColumnType("datetime2");
             HasMany(o => o.OrderItems);
         }
         

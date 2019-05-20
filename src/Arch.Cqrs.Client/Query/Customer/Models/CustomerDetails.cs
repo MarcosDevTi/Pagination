@@ -50,11 +50,7 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
                         x.FirstName,
                         x.LastName,
                         x.Email,
-                        x.BirthDate,
-                        x.Street,
-                        x.Number,
-                        x.City,
-                        x.ZipCode));
+                        x.BirthDate));
         }
 
 

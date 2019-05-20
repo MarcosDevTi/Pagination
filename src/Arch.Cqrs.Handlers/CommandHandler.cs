@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using Arch.Cqrs.Client.Command.Customer;
+﻿using Arch.Cqrs.Client.Command.Customer;
 using Arch.Domain.Core;
 using Arch.Domain.Core.DomainNotifications;
 using Arch.Domain.Core.Event;
@@ -15,6 +7,14 @@ using Arch.Infra.Data;
 using Arch.Infra.Shared.Cqrs.Command;
 using Arch.Infra.Shared.Cqrs.Event;
 using Arch.Infra.Shared.EventSourcing;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace Arch.Cqrs.Handlers
 {
@@ -44,23 +44,17 @@ namespace Arch.Cqrs.Handlers
 
         protected void Commit(Event evet)
         {
-
-
             if (_notifications.HasNotifications()) return;
             if (_architectureContext.SaveChanges() > 0)
             {
                 var anterior = _eventRepository.GetLastEvent(evet.AggregateId);
                 var objJson = anterior != null
-                    ? ReadToObject(((StoredEvent) anterior).Data, ((StoredEvent) anterior).Assembly)
+                    ? ReadToObject(((StoredEvent)anterior).Data, ((StoredEvent)anterior).Assembly)
                     : null;
                 _eventRepository.Save(evet, objJson);
-
-                
             }
-
-            
             else
-            AddNotification(new DomainNotification("Commit", "We had a problem during saving your data."));
+                AddNotification(new DomainNotification("Commit", "We had a problem during saving your data."));
         }
         public List<MemberInfo> GetAttributs(object obj)
         {
@@ -68,7 +62,7 @@ namespace Arch.Cqrs.Handlers
 
             var target = obj.GetType().Assembly;
             var assemblies = target.GetReferencedAssemblies()
-                .Select(System.Reflection.Assembly.Load).ToList();
+                .Select(Assembly.Load).ToList();
             assemblies.Add(target);
 
             var map = assemblies.SelectMany(_ => _.GetExportedTypes())
@@ -80,15 +74,15 @@ namespace Arch.Cqrs.Handlers
             return (List<MemberInfo>)tipo.Members;
         }
 
-
-        protected void Commit(object command,object entity)
+        protected void Commit(Entity entity, string action, Entity lastEntity = null)
         {
-            var listIgnoredMembers = GetAttributs(entity).Select(_ => _.Name);
             if (_notifications.HasNotifications()) return;
             if (_architectureContext.SaveChanges() > 0)
             {
-                //When = DateTime.Now.ToString(CultureInfo.InvariantCulture);
-                //save source
+                var eventEntity = new EventEntity(action, entity, "Marcos", lastEntity);
+
+                _eventSourcingContext.EventEntities.Add(eventEntity);
+                _eventSourcingContext.SaveChanges();
             }
             else
                 AddNotification(new DomainNotification("Commit", "We had a problem during saving your data."));
@@ -98,7 +92,6 @@ namespace Arch.Cqrs.Handlers
         {
             _notifications.Add(notification);
         }
-
 
         public static object ReadToObject(string json, string typeP)
         {

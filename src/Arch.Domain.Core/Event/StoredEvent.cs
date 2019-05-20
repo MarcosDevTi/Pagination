@@ -38,12 +38,12 @@ namespace Arch.Domain.Core.Event
 
         //public EntityEvent(Entity entity, string user)
         //{
-        //    var theEvent = new Entity();
-        //    theEvent.When = DateTime.Now.ToString();
-        //    theEvent.Who = user;
-        //    Id = Guid.NewGuid();
-        //    AggregateId = theEvent.AggregateId;
-        //    Action = theEvent.Action;
+        //    //var theEvent = new Entity();
+        //    //theEvent.When = DateTime.Now.ToString();
+        //    //theEvent.Who = user;
+        //    //Id = Guid.NewGuid();
+        //    //AggregateId = theEvent.AggregateId;
+        //    //Action = theEvent.Action;
 
         //    var ignoredMembers = GetAttributs(theEvent).Select(_ => _.Name);
         //    var eventSerialized = JsonConvert.SerializeObject(theEvent);

@@ -25,11 +25,5 @@ namespace Arch.Cqrs.Client.Command.Customer
         [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         [DisplayName("Birth Date")]
         public DateTime BirthDate { get; set; }
-
-        public string Street { get; set; }
-        public string Number { get; set; }
-        public string City { get; set; }
-        [DisplayName("Zip Code")]
-        public string ZipCode { get; set; }
     }
 }

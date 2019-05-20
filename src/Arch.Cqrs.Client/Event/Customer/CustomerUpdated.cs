@@ -9,18 +9,13 @@ namespace Arch.Cqrs.Client.Event.Customer
     {
         public CustomerUpdated() { }
         public CustomerUpdated(
-            Guid iggregateId, string firstName, string lastName, string email, string birthDate,
-            string street, string number, string city, string zipCode)
+            Guid iggregateId, string firstName, string lastName, string email, string birthDate)
         {
             Id = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             BirthDate = birthDate;
-            Street = street;
-            Number = number;
-            City = city;
-            ZipCode = zipCode;
             AggregateId = iggregateId;
         }
         public Guid Id { get; set; }
@@ -29,10 +24,7 @@ namespace Arch.Cqrs.Client.Event.Customer
         public string Email { get; set; }
         public string BirthDate { get; set; }
 
-        public string Street { get; set; }
-        public string Number { get; set; }
-        public string City { get; set; }
-        public string ZipCode { get; set; }
+      
         public void Map(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<UpdateCustomer, CustomerUpdated>()
@@ -41,11 +33,7 @@ namespace Arch.Cqrs.Client.Event.Customer
                 x.FirstName,
                     x.LastName,
                     x.Email,
-                    x.BirthDate.ToString(),
-                    x.Street,
-                    x.Number,
-                    x.City,
-                    x.ZipCode))
+                    x.BirthDate.ToString()))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
         }
     }

@@ -7,6 +7,8 @@ namespace Arch.Infra.Data.Maps
     {
         public ProductMap()
         {
+            //Property(_ => _.CreatedDate).HasColumnType("datetime2");
+
             Property(p => p.Name)
                 .HasColumnName("Name")
                 .IsRequired()

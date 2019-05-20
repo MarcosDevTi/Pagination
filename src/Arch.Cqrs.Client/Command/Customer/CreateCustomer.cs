@@ -22,27 +22,19 @@ namespace Arch.Cqrs.Client.Command.Customer
             string lastName,
             string email,
             DateTime birthDate,
-            string street,
-            string number,
-            string city,
-            string zipCode, 
             Guid? userId = null)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             BirthDate = birthDate;
-            Street = street;
-            Number = number;
-            City = city;
-            ZipCode = zipCode;
         }
 
         public void Map(IMapperConfigurationExpression cfg) =>
             cfg.CreateMap<CreateCustomer, Domain.Models.Customer>()
                 .ConstructUsing(c=> 
                     new Domain.Models.Customer(
-                        c.FirstName, c.LastName, c.Email, c.BirthDate, new Address(c.Street, c.Number, c.City, c.ZipCode)))
+                        c.FirstName, c.LastName, c.Email, c.BirthDate))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
 
         public override bool IsValid()
@@ -51,14 +43,4 @@ namespace Arch.Cqrs.Client.Command.Customer
             return ValidationResult.IsValid;
         }
     }
-
-    //public class CreateCustomerSource : ISaveSource<CreateCustomer>
-    //{
-    //    public void Configure(ISourceWrite<CreateCustomer> builder)
-    //    {
-    //        builder
-    //            .Ignore(x => x.City)
-    //            .Ignore(c => c.AggregateId);
-    //    }
-    //}
 }

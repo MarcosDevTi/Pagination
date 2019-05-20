@@ -13,10 +13,14 @@ using Arch.Cqrs.Client.Query.Customer.Queries;
 using Arch.Domain.Core.Event;
 using Arch.Domain.Event;
 using Arch.Infra.Data;
+using Arch.Infra.Data.EventSourcing;
 using Arch.Infra.Shared.Cqrs.Event;
 using Arch.Infra.Shared.Cqrs.Query;
 using Arch.Infra.Shared.EventSourcing;
 using AutoMapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
 namespace Arch.Cqrs.Handlers.Customer
 {
@@ -53,33 +57,15 @@ namespace Arch.Cqrs.Handlers.Customer
             return Mapper.Map<CustomerDetails>(_architectureContext.Customers.Find(query.Id));
         }
 
-
         public IReadOnlyList<object> Handle(GetCustomerHistory query)
         {
-            var typeOriginal = _eventSourcingContext.StoredEvent.Where(x => 
+            var typeOriginal = _eventSourcingContext.EventEntities.Where(x => 
                 x.AggregateId == query.AggregateId)
-                .OrderBy(d => d.Data)
-                .ToList().Select( x =>
-                 ReadToObject(x.Data, x.Assembly)
+                .OrderBy(d => d.When)
+                .ToList().Select(_ => _.ReadToObject(_, typeof(Domain.Models.Customer))
             ).ToList();
            
             return typeOriginal;
         }
-
-        public static object ReadToObject(string json, string typeP)
-        {
-            var asm = typeof(CreateCustomer).Assembly;
-            var type = asm.GetType(typeP);
-
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            var ser = new DataContractJsonSerializer(type);
-            var res = ser.ReadObject(ms) as object;
-            ms.Close();
-
-            Convert.ChangeType(res, type);
-            return res;
-        }
-
-        
     }
 }

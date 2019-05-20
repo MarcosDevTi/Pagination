@@ -81,6 +81,16 @@ namespace Arch.Infra.Data.EventSourcing
             _eventSourcingContext.SaveChanges();
         }
 
+        public void SaveEntity(Entity entity, Entity lastEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveEntity(object entity)
+        {
+            
+        }
+
         private bool LastChangeIsEqual(string prop, StoredEvent[] events)
         {
             var list = events.Select(x => x.Data);

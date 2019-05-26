@@ -1,28 +1,26 @@
-﻿using System;
+﻿using Arch.Domain.Core;
+using Arch.Domain.Core.Event;
+using Arch.Domain.Event;
+using Arch.Infra.Shared.Cqrs.Event;
+using Arch.Infra.Shared.EventSourcing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Arch.Cqrs.Client.Event.Customer;
-using Arch.Domain.Core;
-using Arch.Domain.Core.Event;
-using Arch.Domain.Event;
-using Arch.Infra.Data.Maps;
-using Arch.Infra.Shared.Cqrs.Event;
-using Arch.Infra.Shared.EventSourcing;
 
 namespace Arch.Infra.Data.EventSourcing
 {
     public class EventRespoitory : IEventRepository
     {
         private readonly EventSourcingContext _eventSourcingContext;
-        private readonly IUser _user;
 
-        public EventRespoitory(EventSourcingContext eventSourcingContext, IUser user)
+
+        public EventRespoitory(EventSourcingContext eventSourcingContext)
         {
             _eventSourcingContext = eventSourcingContext;
-            _user = user;
+
         }
-        
+
 
         public List<MemberInfo> GetAttributs(object obj)
         {
@@ -46,7 +44,7 @@ namespace Arch.Infra.Data.EventSourcing
         public void Save(Event @event, object data)
         {
             //var ignoredMembersList = GetAttributs(@event).Select(_=>_.Name);
-            var listIgnoredMembers = GetAttributs(@event).Select(_=>_.Name);
+            var listIgnoredMembers = GetAttributs(@event).Select(_ => _.Name);
 
             var all = _eventSourcingContext.StoredEvent.Where(x => x.AggregateId == @event.AggregateId).OrderByDescending(x => x.Data).ToArray();
 
@@ -66,18 +64,18 @@ namespace Arch.Infra.Data.EventSourcing
                         propEvent.SetValue(@event, null, null);
                     }
 
-                    if ((prop.Value?.ToString() == getPropSave?.ToString() && (prop.Value != null && getPropSave != null) && prop.Key != "AggregateId" && prop.Key != "Who" && prop.Key != "id" ))
+                    if ((prop.Value?.ToString() == getPropSave?.ToString() && (prop.Value != null && getPropSave != null) && prop.Key != "AggregateId" && prop.Key != "Who" && prop.Key != "id"))
                     {
                         var propEvent = @event.GetType().GetProperty(prop.Key, BindingFlags.Public | BindingFlags.Instance);
                         if (null != propEvent && propEvent.CanWrite)
                         {
                             propEvent.SetValue(@event, null, null);
-                        } 
+                        }
                     }
                 }
             }
-            
-            _eventSourcingContext.StoredEvent.Add(new StoredEvent(@event, _user.Name));
+
+            _eventSourcingContext.StoredEvent.Add(new StoredEvent(@event, "name user"));
             _eventSourcingContext.SaveChanges();
         }
 
@@ -88,7 +86,7 @@ namespace Arch.Infra.Data.EventSourcing
 
         public void SaveEntity(object entity)
         {
-            
+
         }
 
         private bool LastChangeIsEqual(string prop, StoredEvent[] events)
@@ -97,7 +95,6 @@ namespace Arch.Infra.Data.EventSourcing
             foreach (var item in list)
             {
                 var propEvent = item.GetType().GetProperty(prop, BindingFlags.Public | BindingFlags.Instance);
-                if (false) return true;
             }
 
             return false;

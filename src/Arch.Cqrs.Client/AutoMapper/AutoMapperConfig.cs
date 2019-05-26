@@ -1,12 +1,23 @@
-﻿using System;
+﻿
+using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using AutoMapper;
+
 
 namespace Arch.Cqrs.Client.AutoMapper
 {
     public class AutoMapperConfig
     {
+
+        private readonly IMapper _mapper;
+
+        public AutoMapperConfig(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         public static void Register<T>(Func<AssemblyName, bool> filter = null)
         {
             var target = typeof(T).Assembly;
@@ -37,7 +48,11 @@ namespace Arch.Cqrs.Client.AutoMapper
                               !t.IsInterface
                         select (ICustomMapper)Activator.CreateInstance(t)).ToList();
 
-            maps.ForEach(m => m.Map(config));
+            foreach (var m in maps)
+            {
+                m.Map(config);
+            }
+            //maps.ForEach(m => m.Map(config));
         }
 
         private static void LoadIMapToMappings(IMapperConfigurationExpression cfg, Type[] types)

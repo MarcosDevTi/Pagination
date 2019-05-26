@@ -1,12 +1,11 @@
-﻿using System.Linq;
-using Arch.Cqrs.Client.Command.Order;
+﻿using Arch.Cqrs.Client.Command.Order;
 using Arch.Cqrs.Client.Event.Order;
-using Arch.Domain.Core;
 using Arch.Domain.Core.DomainNotifications;
 using Arch.Domain.Event;
 using Arch.Domain.Models;
 using Arch.Infra.Data;
 using Arch.Infra.Shared.Cqrs.Command;
+using System.Linq;
 
 namespace Arch.Cqrs.Handlers.Order
 {
@@ -14,17 +13,15 @@ namespace Arch.Cqrs.Handlers.Order
         ICommandHandler<AddProductToCart>
     {
         private readonly ArchDbContext _architectureContext;
-        private readonly IUser _user;
 
         public OrderCommandHandler(
-            ArchDbContext architectureContext, 
-            IDomainNotification notifications, 
-            IEventRepository eventRepository, 
-            IUser user,
+            ArchDbContext architectureContext,
+            IDomainNotification notifications,
+            IEventRepository eventRepository,
+
             EventSourcingContext eventSourcingContext) : base(architectureContext, notifications, eventRepository, eventSourcingContext)
         {
             _architectureContext = architectureContext;
-            _user = user;
         }
         public void Handle(AddProductToCart command)
         {
@@ -32,7 +29,7 @@ namespace Arch.Cqrs.Handlers.Order
 
             var order = _architectureContext.Orders
                      //.Include(x => x.OrderItems).ThenInclude(c => c.Product)
-                     .FirstOrDefault(x => x.Customer.Id == _user.UserId() && x.Closed == false);
+                     .FirstOrDefault(/*x => x.Customer.Id == _user.UserId() && x.Closed == false*/);
 
             if (order == null)
             {

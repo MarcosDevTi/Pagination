@@ -1,25 +1,19 @@
-﻿using System;
+﻿using Arch.Cqrs.Client.Command.Customer;
+using Arch.Cqrs.Client.Paging;
+using Arch.Cqrs.Client.Query.Customer.Models;
+using Arch.Cqrs.Client.Query.Customer.Queries;
+using Arch.Domain.Core.DomainNotifications;
+using Arch.Domain.Event;
+using Arch.Infra.Shared.Cqrs;
+using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Arch.Cqrs.Client.Command.Customer;
-using Arch.Cqrs.Client.Event.Customer;
-using Arch.Cqrs.Client.Paging;
-using Arch.Cqrs.Client.Query.Customer.Models;
-using Arch.Cqrs.Client.Query.Customer.Queries;
-using Arch.Domain.Core;
-using Arch.Domain.Core.DomainNotifications;
-using Arch.Domain.Event;
-using Arch.Infra.Shared.Cqrs;
-using Arch.Infra.Shared.Cqrs.Event;
-using AutoMapper;
 
 namespace Arch.Api.Controllers
 {
@@ -43,18 +37,20 @@ namespace Arch.Api.Controllers
         public HttpResponseMessage GetHistory([FromUri]GetCustomerHistory getHistory)
         {
             var result = _processor.Get(getHistory);
-            
+
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
         //http://localhost:50005/api/customers?Skip=5&Top=15&SortColumn=Name&SortDirection=Descending&search=Teste
-        [HttpGet, Route("v1/public/customers"), ResponseType(typeof(PagedResult<CustomerIndex>))]
+        [HttpGet, Route("v1/public/list")]
         public HttpResponseMessage Index([FromUri]Paging<CustomerIndex> paging, string search = null)
         {
+
             HttpResponseMessage response;
             try
             {
                 var result = _processor.Get(new GetCustomersIndex(paging, search));
-                response = Request.CreateResponse(HttpStatusCode.OK, result);
+
+                response = Request.CreateResponse(HttpStatusCode.OK, new { result.Items, result.HeadGrid });
             }
             catch
             {
@@ -99,7 +95,7 @@ namespace Arch.Api.Controllers
         }
 
 
-        public static object ReadToObject(string json,string typeP)
+        public static object ReadToObject(string json, string typeP)
         {
             Assembly asm = typeof(CreateCustomer).Assembly;
             Type type = asm.GetType(typeP);

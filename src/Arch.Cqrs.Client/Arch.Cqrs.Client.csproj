@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -87,6 +89,8 @@
     <Compile Include="Command\Product\Validation\DeleteProductValidation.cs" />
     <Compile Include="Command\Product\Validation\ProductCommandValidation.cs" />
     <Compile Include="Command\Product\Validation\UpdateProductValidation.cs" />
+    <Compile Include="Command\User\LoginUser.cs" />
+    <Compile Include="Command\User\RegisterUser.cs" />
     <Compile Include="Event\Customer\CustomerCreated.cs" />
     <Compile Include="Event\Customer\CustomerDeleted.cs" />
     <Compile Include="Event\Customer\CustomerEventMap.cs" />
@@ -121,6 +125,7 @@
     <Compile Include="Query\Product\Models\ProductIndex.cs" />
     <Compile Include="Query\Product\Queries\GetProductDetails.cs" />
     <Compile Include="Query\Product\Queries\GetProductsIndex.cs" />
+    <Compile Include="Query\User\UserExists.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -139,5 +144,6 @@
       <Name>Arch.Infra.Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

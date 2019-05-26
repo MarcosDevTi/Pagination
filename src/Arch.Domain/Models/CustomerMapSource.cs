@@ -11,7 +11,7 @@ namespace Arch.Domain.Models
                 .Ignore(_ => _.BirthDate)
                 .DisplayName(_ => _.FirstName, "Prenom")
                 .DisplayName(_ => _.LastName, "Nom")
-                .DisplayName(_ => _.Email, "Couriel");
+                .DisplayName(_ => _.EmailAddress, "Couriel");
             //    .DisplayName(_ => _.BirthDate, "Date Naissance")
 
 

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Arch.Domain.Core;
+﻿using Arch.Domain.Core;
 using Arch.Domain.ValueObjects;
-using AutoMapper;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace Arch.Domain.Models
 {
@@ -22,7 +19,7 @@ namespace Arch.Domain.Models
             CreatedDate = DateTime.Now;
             FirstName = firstName;
             LastName = lastName;
-            Email = email;
+            EmailAddress = email;
             BirthDate = birthDate;
             //Orders = new List<Order>();
         }
@@ -33,10 +30,10 @@ namespace Arch.Domain.Models
         {
             foreach (var order in orders) Orders.Add(order);
         }
-        
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
         public DateTime BirthDate { get; set; }
         public Address Address { get; set; }
         public ICollection<Order> Orders { get; set; }

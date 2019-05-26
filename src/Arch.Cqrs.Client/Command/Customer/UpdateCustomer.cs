@@ -1,9 +1,7 @@
-﻿using System;
-using System.Security.Permissions;
-using Arch.Cqrs.Client.AutoMapper;
+﻿using Arch.Cqrs.Client.AutoMapper;
 using Arch.Cqrs.Client.Command.Customer.Validation;
-using Arch.Domain.ValueObjects;
 using AutoMapper;
+using System;
 
 namespace Arch.Cqrs.Client.Command.Customer
 {

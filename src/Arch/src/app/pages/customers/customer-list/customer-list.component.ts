@@ -38,8 +38,6 @@ data: any[]
     this.customerService.getAll(0, 20, 'FirstName', 'Descending', 'Teste').subscribe(
       customers => {
         this.customers = customers;
-        
-        
         this.displayedColumns = Object.keys(this.customers[0]);
         this.columnsToDisplay = Object.keys(this.customers[0]);
       },

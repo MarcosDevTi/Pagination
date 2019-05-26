@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Cors;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SimpleInjector;
+using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Arch.Api
 {
@@ -21,9 +17,6 @@ namespace Arch.Api
             jsonSettings.Formatting = Formatting.Indented;
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            //formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling =
-            //    PreserveReferencesHandling.Objects;
-
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
@@ -37,6 +30,6 @@ namespace Arch.Api
             );
         }
 
-      
+
     }
 }

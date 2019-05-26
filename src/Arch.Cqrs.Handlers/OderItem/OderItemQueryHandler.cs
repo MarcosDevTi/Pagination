@@ -14,12 +14,10 @@ namespace Arch.Cqrs.Handlers.OderItem
         IQueryHandler<GetCart, Client.Query.OrderItem.Models.Cart>
     {
         private readonly ArchDbContext _architectureContext;
-        private readonly IUser _user;
 
-        public OderItemQueryHandler(ArchDbContext architectureContext, IUser user)
+        public OderItemQueryHandler(ArchDbContext architectureContext)
         {
             _architectureContext = architectureContext;
-            _user = user;
         }
 
         public IReadOnlyList<OrderItemIndex> Handle(GetOrderItensIndex query)
@@ -28,7 +26,7 @@ namespace Arch.Cqrs.Handlers.OderItem
                     .Include(x => x.Customer)
                     .Include(x => x.OrderItems)
                               from o in oi.OrderItems
-                              where oi.Customer.Id == _user.UserId()
+                              //where oi.Customer.Id == _user.UserId()
                               select o;
 
             return ordersItens.Include(x => x.Product)
@@ -46,7 +44,7 @@ namespace Arch.Cqrs.Handlers.OderItem
                     .Include(x => x.Customer)
                     .Include(x => x.OrderItems)
                               from o in oi.OrderItems
-                              where oi.Customer.Id == _user.UserId()
+                              //where oi.Customer.Id == _user.UserId()
                               select o;
 
             var result = ordersItens.Include(x => x.Product)

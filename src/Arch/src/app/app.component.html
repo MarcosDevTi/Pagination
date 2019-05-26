@@ -1,10 +1,3 @@
-<mat-menu #appMenu="matMenu">
-  <button mat-menu-item [routerLink]="['/customers']" >Customers</button>
-  <button mat-menu-item [routerLink]="['/customers/new']">New Customer</button>
-</mat-menu>
-
-<button mat-icon-button [matMenuTriggerFor]="appMenu">
-  <mat-icon>more_vert</mat-icon>
-</button>
+<app-nav></app-nav>
 
 <router-outlet></router-outlet>

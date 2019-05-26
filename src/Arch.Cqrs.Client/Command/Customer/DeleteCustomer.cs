@@ -1,5 +1,5 @@
-﻿using System;
-using Arch.Cqrs.Client.Command.Customer.Validation;
+﻿using Arch.Cqrs.Client.Command.Customer.Validation;
+using System;
 
 namespace Arch.Cqrs.Client.Command.Customer
 {

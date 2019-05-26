@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
@@ -72,6 +74,10 @@
     <Compile Include="EventSourcing\SourceFluent.cs" />
     <Compile Include="EventSourcing\SourceTypeBuilder.cs" />
     <Compile Include="EventSourcing\test.cs" />
+    <Compile Include="Grid\GridFluent.cs" />
+    <Compile Include="Grid\GridOutils.cs" />
+    <Compile Include="Grid\GridTypeBuilder.cs" />
+    <Compile Include="Grid\HeadGridProp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

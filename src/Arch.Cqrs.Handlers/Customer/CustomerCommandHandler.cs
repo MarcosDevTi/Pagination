@@ -35,7 +35,7 @@ namespace Arch.Cqrs.Handlers.Customer
             var customer = Mapper.Map<Domain.Models.Customer>(command);
 
 
-            if (Db().Any(x => x.Email == customer.Email))
+            if (Db().Any(x => x.EmailAddress == customer.EmailAddress))
             {
                 AddNotification(new DomainNotification(
                     command.Action, "The customer e-mail has already been taken."));
@@ -58,7 +58,7 @@ namespace Arch.Cqrs.Handlers.Customer
             command.AggregateId = command.Id;
 
             var customer = Mapper.Map<Domain.Models.Customer>(command);
-            var existingCustomer = Db().Any(x => x.Email == customer.Email && x.Id != command.Id);
+            var existingCustomer = Db().Any(x => x.EmailAddress == customer.EmailAddress && x.Id != command.Id);
 
             if (existingCustomer)
             {

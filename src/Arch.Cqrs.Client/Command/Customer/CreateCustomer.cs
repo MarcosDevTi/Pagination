@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using Arch.Cqrs.Client.AutoMapper;
+﻿using Arch.Cqrs.Client.AutoMapper;
 using Arch.Cqrs.Client.Command.Customer.Validation;
-using Arch.Domain.ValueObjects;
-using Arch.Infra.Shared.Cqrs.Event;
 using AutoMapper;
 using FluentValidation.Results;
+using System;
 
 namespace Arch.Cqrs.Client.Command.Customer
 {
@@ -32,7 +25,7 @@ namespace Arch.Cqrs.Client.Command.Customer
 
         public void Map(IMapperConfigurationExpression cfg) =>
             cfg.CreateMap<CreateCustomer, Domain.Models.Customer>()
-                .ConstructUsing(c=> 
+                .ConstructUsing(c =>
                     new Domain.Models.Customer(
                         c.FirstName, c.LastName, c.Email, c.BirthDate))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();

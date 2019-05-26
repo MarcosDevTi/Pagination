@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Arch.Cqrs.Client.AutoMapper;
+﻿using Arch.Cqrs.Client.AutoMapper;
 using Arch.Domain.ValueObjects;
-using AutoMapper;
+using System;
 
 namespace Arch.Cqrs.Client.Command.Customer
 {
-    public class UpdateAddress: IMapTo<Address>
+    public class UpdateAddress : IMapTo<Address>
     {
         public UpdateAddress(Guid id, string street, string number, string city, string zipCode)
         {

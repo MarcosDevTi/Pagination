@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Arch.Cqrs.Client.AutoMapper;
+﻿using Arch.Cqrs.Client.AutoMapper;
 using Arch.Cqrs.Client.Command.Customer;
 using Arch.Cqrs.Handlers.Customer;
-using Arch.Domain.Core;
 using Arch.Domain.Core.DomainNotifications;
 using Arch.Domain.Event;
 using Arch.Infra.Data;
 using Arch.Infra.Data.EventSourcing;
 using Arch.Infra.Shared.Cqrs;
-using Arch.Infra.Shared.Cqrs.Event;
 using Arch.Infra.Shared.Cqrs.Extentions;
 using SimpleInjector;
 
@@ -33,7 +26,6 @@ namespace Arch.Infra.IoC
             container.AddCqrs<CustomerCommandHandler>();
             container.Register<IDomainNotification, DomainNotificationHandler>(Lifestyle.Scoped);
             container.Register<IEventRepository, EventRespoitory>(Lifestyle.Transient);
-            container.Register<IUser, User>();
 
         }
     }

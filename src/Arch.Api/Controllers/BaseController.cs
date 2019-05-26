@@ -12,7 +12,7 @@ namespace Arch.Api.Controllers
             _notifications = notifications;
         }
 
-        public bool IsValidOperation()
+        public bool IsValidOperation()  
         {
             return (!_notifications.HasNotifications());
         }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Customer } from './customer.module';
+import { Customer } from './customer.model';
 import { Observable, throwError } from 'rxjs';
 import {map, catchError, flatMap} from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
@@ -12,8 +12,11 @@ export class CustomerService {
   private apiPath = 'http://localhost:50005/api/customers/v1/public/list';
   constructor(private http: HttpClient) { }
 
-  getAll(skip: number, top: number, sortColumn: string, sortDirection: string, search: string): Observable<Grid<Customer>> {
-    const url = `${this.apiPath}?skip=${skip}&top=${top}&sortColumn=${sortColumn}&sortDirection=${sortDirection}&search=${search}`;
+  getAll(custParams: CustomerParams): Observable<Grid<Customer>> {
+    const url =
+    `${this.apiPath}?skip=${custParams.skip}&top=${custParams.top}
+    &sortColumn=${custParams.sortColumn}&sortDirection=${custParams.sortDirection}&search=${custParams.search}`;
+
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomers)
@@ -76,4 +79,12 @@ export class CustomerService {
     console.log('Erro na requisição => ', error);
     return throwError(error);
   }
+}
+
+export interface CustomerParams {
+  skip: number;
+  top: number;
+  sortColumn: string;
+  sortDirection: string;
+  search: string;
 }

@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './components/nav/nav.component';
 import { NavItemComponent } from './components/nav/nav-item/nav-item.component';
@@ -17,7 +19,7 @@ import { NavItemComponent } from './components/nav/nav-item/nav-item.component';
   declarations: [
     AppComponent,
     NavComponent,
-    NavItemComponent
+    NavItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { NavItemComponent } from './components/nav/nav-item/nav-item.component';
 
     MatMenuModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

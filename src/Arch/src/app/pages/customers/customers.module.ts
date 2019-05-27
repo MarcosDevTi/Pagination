@@ -9,22 +9,33 @@ import { CustomerCreateComponent } from './customer-create/customer-create.compo
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+import { SatPopoverModule } from '@ncstate/sat-popover';
 
 import { CustomerHistoryComponent } from './shared/customer-history/customer-history.component';
 import { CustomerService } from './shared/customer.service';
+import { InlineEditComponent } from './inline-edit/inline-edit.component';
+
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerEditComponent, CustomerCreateComponent, CustomerHistoryComponent  ],
+  declarations: [CustomerListComponent, CustomerEditComponent, CustomerCreateComponent, CustomerHistoryComponent, InlineEditComponent  ],
   imports: [
     CommonModule,
     CustomersRoutingModule,
 
+    SatPopoverModule,
+
     MatTableModule,
     MatButtonModule,
     MatPaginatorModule,
+    MatFormFieldModule,
   ],
   providers: [
     CustomerService
+  ],
+  exports: [
+    MatFormFieldModule
   ]
 })
 export class CustomersModule { }

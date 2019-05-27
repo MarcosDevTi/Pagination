@@ -3,15 +3,19 @@
        class="mat-elevation-z8">
   <ng-container matColumnDef="{{column.viewPropCamelCase}}" *ngFor="let column of displayedColumns">
     <th mat-header-cell *matHeaderCellDef> <span class="headCell" (click)="orderBy(column.viewProp)">{{column.displayProp}}</span>  </th>
-    <td mat-cell *matCellDef="let element"> {{element[column.viewPropCamelCase]}} </td>
+    <td mat-cell *matCellDef="let element"> {{element[column.viewPropCamelCase]}}   
+     
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" >
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
            <app-customer-history [customerId]="element.id"></app-customer-history>
       </div>
+
+      
     </td>
   </ng-container>
 

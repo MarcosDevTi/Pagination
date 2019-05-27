@@ -14,7 +14,7 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
         public DateTime BirthDate { get; set; }
 
 
-        public bool Especial { get; set; }
+        //public bool Especial { get; set; } = false;
         public void Map(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Domain.Models.Customer, CustomerIndex>()
@@ -34,7 +34,8 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
     {
         public override void Configuration(GridFluent<CustomerIndex> builder)
         {
-            builder.DisplayName(_ => _.Name, "Prémon");
+            builder.DisplayName(_ => _.Name, "Prémon")
+                .DisplayName(_ => _.BirthDate, "Date de Naissance");
         }
     }
 }

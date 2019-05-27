@@ -50,7 +50,7 @@ namespace Arch.Api.Controllers
             {
                 var result = _processor.Get(new GetCustomersIndex(paging, search));
 
-                response = Request.CreateResponse(HttpStatusCode.OK, new { result.Items, result.HeadGrid });
+                response = Request.CreateResponse(HttpStatusCode.OK, new { result.Items, result.HeadGrid, result.TotalNumberOfItems});
             }
             catch
             {

@@ -60,7 +60,7 @@ namespace Arch.Cqrs.Client.Paging
             var command = paging.SortDirection == SortDirection.Descending ? "OrderByDescending" : "OrderBy";
 
             var parts = paging.SortColumn.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-            var propp = GetSourceAndDest<T, T2>().First(_ => _.dest.Name == parts[0]).src;
+            var propp = GetSourceAndDest<T, T2>().FirstOrDefault(_ => _.dest.Name == parts[0]).src;
             var property = typeof(T).GetProperty(propp.Name);
 
 
@@ -99,7 +99,7 @@ namespace Arch.Cqrs.Client.Paging
 
                 return new HeadGridProp
                 {
-
+                    ViewPropCamelCase = ConvertToCamelCase(view),
                     ViewProp = view,
                     ModelProp = ((dynamic)_.src).Name,
                     DisplayProp = display
@@ -107,6 +107,11 @@ namespace Arch.Cqrs.Client.Paging
             }).ToList();
 
             return head;
+        }
+
+        private static string ConvertToCamelCase(string name)
+        {
+            return char.ToLowerInvariant(name[0]) + name.Substring(1);
         }
 
         private static IEnumerable<(PropertyInfo dest, PropertyInfo src)> GetSourceAndDest<T, T2>()
@@ -123,4 +128,6 @@ namespace Arch.Cqrs.Client.Paging
             ).ToList();
         }
     }
+
+
 }

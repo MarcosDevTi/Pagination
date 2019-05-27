@@ -2,6 +2,7 @@
 {
     public class HeadGridProp
     {
+        public string ViewPropCamelCase { get; set; }
         public string ViewProp { get; set; }
         public string ModelProp { get; set; }
         public string DisplayProp { get; set; }

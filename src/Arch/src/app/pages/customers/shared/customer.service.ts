@@ -3,22 +3,23 @@ import { Customer } from './customer.module';
 import { Observable, throwError } from 'rxjs';
 import {map, catchError, flatMap} from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
+import { Grid } from './grid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  private apiPath = 'http://localhost:50005/api/customers/v1/public/customers';
+  private apiPath = 'http://localhost:50005/api/customers/v1/public/list';
   constructor(private http: HttpClient) { }
 
-  getAll(skip: number, top: number, sortColumn: string, sortDirection: string, search: string): Observable<Customer[]> {
+  getAll(skip: number, top: number, sortColumn: string, sortDirection: string, search: string): Observable<Grid<Customer>> {
     const url = `${this.apiPath}?skip=${skip}&top=${top}&sortColumn=${sortColumn}&sortDirection=${sortDirection}&search=${search}`;
-    console.log(url);
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomers)
     );
   }
+
 
   getHistory(id: string): Observable<any> {
     const url = `http://localhost:50005/api/customers/v1/public/history?aggregateId=${id}`;
@@ -59,10 +60,14 @@ export class CustomerService {
     )
   }
 
-  private jsonDataToCustomers(jsonData: any[]): Customer[] {
+  private jsonDataToCustomers(jsonData): Grid<Customer> {
+    
     const customers: Customer[] = [];
-    jsonData.forEach(element => customers.push(element as Customer));
-    return customers;
+    jsonData.items.forEach(element => customers.push(element as Customer));
+    const head = jsonData.headGrid;
+    const totalItems = jsonData.totalNumberOfItems
+    const grid = new Grid<Customer>(customers, head, totalItems);
+    return grid;
   }
   private jsonDataToCustomer(jsonData: any): Customer {
     return jsonData as Customer;

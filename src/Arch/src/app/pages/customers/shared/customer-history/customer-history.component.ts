@@ -31,7 +31,7 @@ export class CustomerHistoryComponent implements OnInit {
         events.forEach(element => {
           this.displayedColumns.forEach(c => {
 
-            console.log(c, element[c])
+            // console.log(c, element[c])
             //this.valores.push(c, element[c]);
           })
       });

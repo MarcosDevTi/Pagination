@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, PageEvent } from '@angular/material';
 import { CustomerService } from '../shared/customer.service';
 import { Customer } from '../shared/customer.module';
 
@@ -25,21 +25,75 @@ export interface PeriodicElement {
   ],
 })
 export class CustomerListComponent implements OnInit {
+  constructor(private customerService: CustomerService) { }
 data: any[]
   customers: Customer[] = [];
-  constructor(private customerService: CustomerService) { }
 
-  displayedColumns: string[];
+  displayedColumns: any[];
   columnsToDisplay: string[];
   dataSource = this.customers;
   expandedElement: PeriodicElement | null;
+  orderByDirection = 'Ascending'
+  nameOrder = "Name"
+
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  pageIndexCount = 0;
+
+  pageEvent: PageEvent;
 
   ngOnInit(): void {
-    this.customerService.getAll(0, 20, 'FirstName', 'Descending', 'Teste').subscribe(
+    
+    this.customerService.getAll(this.pageIndexCount, this.pageSize, this.nameOrder, this.orderByDirection, '').subscribe(
       customers => {
-        this.customers = customers;
-        this.displayedColumns = Object.keys(this.customers[0]);
-        this.columnsToDisplay = Object.keys(this.customers[0]);
+        this.customers = customers.items;
+        this.displayedColumns = customers.head;
+        this.columnsToDisplay = customers.head.map(x => x.viewPropCamelCase);
+        this.length = customers.totalItems;
+      },
+      error => alert('Erro ao carregar a lista')
+    );
+  }
+
+  pageChanged(e: PageEvent){
+    this.pageIndexCount = e.pageIndex * this.pageSize;
+    this.pageSize = e.pageSize;
+
+    this.customerService.getAll(this.pageIndexCount, this.pageSize, this.nameOrder, this.orderByDirection, '').subscribe(
+      customers => {
+        this.customers = customers.items;
+        this.displayedColumns = customers.head;
+        this.columnsToDisplay = customers.head.map(x => x.viewPropCamelCase),
+        this.length = customers.totalItems;
+      },
+      error => alert('Erro ao carregar a lista')
+    );
+
+
+  }
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    console.log(setPageSizeOptionsInput)
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  }
+
+  orderBy(name: string) {
+
+    if (this.nameOrder === name) {
+      if (this.orderByDirection === 'Ascending') {
+        this.orderByDirection = 'Descending';
+      } else {
+        this.orderByDirection = 'Ascending';
+      }
+    }
+
+    this.nameOrder = name;
+    this.customerService.getAll(this.pageIndexCount, this.pageSize, this.nameOrder, this.orderByDirection, '').subscribe(
+      customers => {
+        this.customers = customers.items;
+        this.displayedColumns = customers.head;
+        this.columnsToDisplay = customers.head.map(x => x.viewPropCamelCase)
       },
       error => alert('Erro ao carregar a lista')
     );

@@ -7,6 +7,9 @@ import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 import { CustomerCreateComponent } from './customer-create/customer-create.component';
 
 import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 import { CustomerHistoryComponent } from './shared/customer-history/customer-history.component';
 import { CustomerService } from './shared/customer.service';
 
@@ -17,6 +20,8 @@ import { CustomerService } from './shared/customer.service';
     CustomersRoutingModule,
 
     MatTableModule,
+    MatButtonModule,
+    MatPaginatorModule,
   ],
   providers: [
     CustomerService

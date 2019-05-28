@@ -12,7 +12,7 @@ export class NavComponent implements OnInit {
 
   menuData: NavItem[] = [
     {nom: 'Accueil', url: '', navItems: []},
-    {nom: 'Entreprise', url: '/customers',
+    {nom: 'Customers', url: '/customers',
       navItems: [
                   {nom: 'Customers', url: '/customers', navItems: []},
                   {nom: 'New Customer', url: '/customers/new', navItems: []},
@@ -34,9 +34,9 @@ export class NavComponent implements OnInit {
                 },
                 ]
     },
-    {nom: 'Rapport', url: '',
+    {nom: 'Products', url: '',
     navItems: [
-                {nom: 'SubMenu 1', url: '#', navItems: []},
+                {nom: 'Products', url: '/products', navItems: []},
                 {nom: 'SubMenu 2', url: '#', navItems: []},
               ]
     },

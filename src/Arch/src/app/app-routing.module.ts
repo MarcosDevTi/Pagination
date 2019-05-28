@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  {path: 'customers', loadChildren: './pages/customers/customers.module#CustomersModule'}
+  {path: 'customers', loadChildren: './pages/customers/customers.module#CustomersModule'},
+  {path: 'products', loadChildren: './pages/products/products.module#ProductsModule'},
 ];
 
 @NgModule({

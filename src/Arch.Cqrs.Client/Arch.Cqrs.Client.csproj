@@ -122,8 +122,10 @@
     <Compile Include="Query\OrderItem\Queries\GetCart.cs" />
     <Compile Include="Query\OrderItem\Queries\GetOrderItensIndex.cs" />
     <Compile Include="Query\Product\Models\ProductDetails.cs" />
+    <Compile Include="Query\Product\Models\ProductDropDownItem.cs" />
     <Compile Include="Query\Product\Models\ProductIndex.cs" />
     <Compile Include="Query\Product\Queries\GetProductDetails.cs" />
+    <Compile Include="Query\Product\Queries\GetProductsDropDownList.cs" />
     <Compile Include="Query\Product\Queries\GetProductsIndex.cs" />
     <Compile Include="Query\User\UserExists.cs" />
   </ItemGroup>

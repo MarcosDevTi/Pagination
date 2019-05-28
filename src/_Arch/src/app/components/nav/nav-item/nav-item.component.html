@@ -1,0 +1,15 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  <span *ngFor="let child of items">
+    <span *ngIf="child.navItems && child.navItems.length > 0">
+      <button mat-menu-item  [matMenuTriggerFor]="menu.childMenu"> 
+        <span>{{child.nom}}</span>
+      </button>
+      <app-nav-item #menu [items]="child.navItems"></app-nav-item>
+    </span>
+    <span *ngIf="!child.children || child.navItems.length === 0">
+      <button mat-menu-item [routerLink]="child.url">
+        <span>{{child.nom}}</span>
+      </button>
+    </span>
+  </span>
+</mat-menu>

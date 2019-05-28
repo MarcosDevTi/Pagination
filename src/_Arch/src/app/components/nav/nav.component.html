@@ -1,0 +1,17 @@
+
+<div class="basic-container">
+  <span *ngFor="let item of menuData">
+    <span *ngIf="item.navItems && item.navItems.length > 0">
+      <button mat-button [matMenuTriggerFor]="menu.childMenu">
+        {{item.nom}}
+        <mat-icon>expand_more</mat-icon>
+      </button>
+      <app-nav-item #menu [items]="item.navItems"></app-nav-item>
+    </span>
+    <span *ngIf="!item.navItems || item.navItems.length === 0">
+      <button mat-button [routerLink]="item.url">
+        {{item.nom}}
+      </button>
+    </span>
+  </span>
+</div>

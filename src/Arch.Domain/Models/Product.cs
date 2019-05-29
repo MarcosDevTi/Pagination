@@ -1,5 +1,5 @@
-﻿using System;
-using Arch.Domain.Core;
+﻿using Arch.Domain.Core;
+using System;
 
 namespace Arch.Domain.Models
 {
@@ -11,7 +11,7 @@ namespace Arch.Domain.Models
         }
         public Product(string name, string description, decimal price, Guid? id = null)
         {
-            GetId(Id);
+            Id = Guid.NewGuid();
             Name = name;
             Description = description;
             Price = price;

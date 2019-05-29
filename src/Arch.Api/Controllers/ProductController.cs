@@ -1,9 +1,9 @@
-﻿using Arch.Domain.Core.DomainNotifications;
+﻿using Arch.Cqrs.Client.Query.Product.Queries;
+using Arch.Domain.Core.DomainNotifications;
 using Arch.Infra.Shared.Cqrs;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Arch.Cqrs.Client.Query.Product.Queries;
 
 namespace Arch.Api.Controllers
 {
@@ -19,8 +19,10 @@ namespace Arch.Api.Controllers
         [HttpGet, Route("v1/public/list")]
         public HttpResponseMessage ProductsDropDownList(GetProductsDropDownList getProductsDw)
         {
+            getProductsDw = new GetProductsDropDownList();
             var result = _processor.Get(getProductsDw);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
     }
+
 }

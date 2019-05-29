@@ -36,7 +36,7 @@ namespace Arch.Cqrs.Handlers.Product
 
         public IReadOnlyList<ProductDropDownItem> Handle(GetProductsDropDownList query)
         {
-            return _architectureContext.Products.Where(_=> _.Name.Contains(query.Seach)).Select(_ => new ProductDropDownItem
+            return _architectureContext.Products.Select(_ => new ProductDropDownItem
             {
                 Id = _.Id,
                 Name = _.Name

@@ -1,0 +1,27 @@
+// https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/
+
+#content {
+    background-color: rgb(199, 199, 199);
+    width: 500px;
+    height: 500px;
+    display: flex;
+}
+
+.item {
+    height: 100px;
+    width: 100px;
+    color: black;
+    background: #fff;
+    margin: 5px;
+    flex: 0, 1, auto;
+   
+}
+
+.item:nth-child(1) {
+    flex-grow: 1;
+}
+
+.item:nth-child(2) {
+    flex-grow: 1;
+}
+

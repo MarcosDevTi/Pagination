@@ -37,7 +37,7 @@ export class NavComponent implements OnInit {
     {nom: 'Products', url: '',
     navItems: [
                 {nom: 'Products', url: '/products', navItems: []},
-                {nom: 'SubMenu 2', url: '#', navItems: []},
+                {nom: 'New Product', url: '/products/new', navItems: []},
               ]
     },
     {nom: 'Pilotage', url: '', navItems: []},

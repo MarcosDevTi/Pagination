@@ -1,0 +1,26 @@
+  <form [formGroup]="formProduct" (ngSubmit)="onSubmit()" novalidate>
+      <mat-checkbox (change)="mudouIsOk()" formControlName="isOk">Check me!</mat-checkbox>
+      <mat-form-field>
+          <input matInput placeholder="Name" maxlength="10" formControlName="name">
+          <mat-hint align="end" >{{formProduct.value.name?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="formProduct.value.isOk">
+          <input matInput placeholder="Price" formControlName="price">
+          <mat-error *ngIf="formProduct.get('price').invalid">The Price must have 4 characteres minimum</mat-error>
+      </mat-form-field>
+     
+      <button [disabled]="formProduct.invalid" type="submit"  mat-raised-button>Save</button>
+  </form>
+
+
+  <mat-tab-group>
+      <mat-tab label="First">
+         <app-product-principal></app-product-principal> 
+        </mat-tab>
+      <mat-tab label="Second"> 
+        <app-product-details></app-product-details> 
+      </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+   

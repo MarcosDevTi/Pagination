@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -12,7 +12,11 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<ProductDw[]> {
-    return this.http.get(this.apiPath).pipe(
+    var search = {seach: 'test'}
+    let params = new HttpParams()
+    .set('seach', 'test')
+
+    return this.http.get(this.apiPath, {params}).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomers)
     );
@@ -32,6 +36,10 @@ export class ProductService {
 
 
 export class ProductDw {
+  constructor(id: string, name: string) {
+    this.id = id;
+    this.name = name;
+  }
   id: string;
   name: string;
 }

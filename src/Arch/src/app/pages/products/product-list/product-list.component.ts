@@ -29,8 +29,6 @@ export class ProductListComponent implements OnInit {
     stateGroup: '',
   });
 
-  
-  
   stateGroupOptions: Observable<StateGroup[]>;
 
   constructor(

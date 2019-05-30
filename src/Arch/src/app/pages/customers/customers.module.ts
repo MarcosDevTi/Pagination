@@ -16,10 +16,17 @@ import { SatPopoverModule } from '@ncstate/sat-popover';
 import { CustomerHistoryComponent } from './shared/customer-history/customer-history.component';
 import { CustomerService } from './shared/customer.service';
 import { InlineEditComponent } from './inline-edit/inline-edit.component';
+import { Customers2Component } from './customers2/customers2.component';
 
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerEditComponent, CustomerCreateComponent, CustomerHistoryComponent, InlineEditComponent  ],
+  declarations: [
+    CustomerListComponent,
+    CustomerEditComponent,
+    CustomerCreateComponent,
+    CustomerHistoryComponent,
+    InlineEditComponent,
+    Customers2Component ],
   imports: [
     CommonModule,
     CustomersRoutingModule,

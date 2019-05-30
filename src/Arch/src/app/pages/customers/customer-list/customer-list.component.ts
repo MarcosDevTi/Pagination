@@ -62,13 +62,11 @@ data: any[]
 
     this.updateList();
   }
-  
+
   update(el: Customer, comment: string) {
     if (comment == null) { return; }
-    // copy and mutate
     const copy = this.customers.slice()
     el.firstName = comment;
-    //this.customers.update(copy);
   }
 
   orderBy(name: string) {

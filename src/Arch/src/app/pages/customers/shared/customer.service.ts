@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Customer } from './customer.model';
 import { Observable, throwError } from 'rxjs';
 import {map, catchError, flatMap} from 'rxjs/operators'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Grid } from './grid';
 
 @Injectable({
@@ -13,14 +13,19 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   getAll(custParams: CustomerParams): Observable<Grid<Customer>> {
-    const url =
-    `${this.apiPath}?skip=${custParams.skip}&top=${custParams.top}
-    &sortColumn=${custParams.sortColumn}&sortDirection=${custParams.sortDirection}&search=${custParams.search}`;
-
-    return this.http.get(url).pipe(
+    const params = this.GetParams(custParams)
+    return this.http.get(this.apiPath, {params}).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomers)
     );
+  }
+
+  private GetParams(obj): HttpParams {
+    let params = new HttpParams();
+    Object.keys(obj).forEach((item) => {
+      params = params.set(item, obj[item]);
+  });
+    return params;
   }
 
 

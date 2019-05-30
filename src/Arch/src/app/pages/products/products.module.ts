@@ -21,6 +21,7 @@ import { ProductPrincipalComponent } from './new-product/product-principal/produ
 import { ProductDetailsComponent } from './new-product/product-details/product-details.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProductService } from './product.service';
+import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 
 @NgModule({
   declarations: [ProductListComponent, NewProductComponent, ProductPrincipalComponent, ProductDetailsComponent],
@@ -38,6 +39,8 @@ import { ProductService } from './product.service';
     MatGridListModule,
     MatCardModule,
     MatTabsModule,
+
+    MatSelectInfiniteScrollModule,
 
     ReactiveFormsModule
   ],

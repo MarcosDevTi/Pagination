@@ -1,3 +1,22 @@
-<p>
-  product-details works!
-</p>
+<form [formGroup]="formProd" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Assignee" aria-label="Assignee" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          <a (click)="selecionar(option.id)">{{option.name}}</a>
+        </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field >
+    <mat-label>Select</mat-label>
+    <mat-select msInfiniteScroll (infiniteScroll)="getNextBatch()" [complete]="offset === data.length">
+      <mat-option *ngFor="let option of options$ | async" [value]="option">{{option.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+
+<div class="container">
+  
+</div>

@@ -10,9 +10,5 @@ namespace Arch.Cqrs.Client.Command.OrderItem
         }
 
         public Guid Id { get; private set; }
-        public override bool IsValid()
-        {
-            return true;
-        }
     }
 }

@@ -29,11 +29,5 @@ namespace Arch.Cqrs.Client.Command.Customer
                     new Domain.Models.Customer(
                         c.FirstName, c.LastName, c.Email, c.BirthDate))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
-
-        public override bool IsValid()
-        {
-            ValidationResult = new CreateCustomerValidation().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 }

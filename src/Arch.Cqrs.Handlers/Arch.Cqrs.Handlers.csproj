@@ -68,6 +68,7 @@
     <Compile Include="Customer\CustomerCommandHandler.cs" />
     <Compile Include="Customer\CustomerQueryHandler.cs" />
     <Compile Include="DbContextExtensions.cs" />
+    <Compile Include="Generic\ListCommandHandler.cs" />
     <Compile Include="OderItem\OderItemQueryHandler.cs" />
     <Compile Include="OderItem\OrderItemCommandHandler.cs" />
     <Compile Include="Order\OrderCommandHandler.cs" />

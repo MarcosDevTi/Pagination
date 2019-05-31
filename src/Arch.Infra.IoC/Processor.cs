@@ -17,7 +17,7 @@ namespace Arch.Infra.IoC
         public Processor(Container container) =>
             _container = container;
 
-        public void Send<TCommand>(TCommand command) where TCommand : Command
+        public void Send<TCommand>(TCommand command) where TCommand : ICommand
         {
 
             GetHandle(typeof(ICommandHandler<>), command.GetType()).Handle((dynamic)command);

@@ -5,7 +5,7 @@ using System;
 
 namespace Arch.Cqrs.Client.Query.Customer.Models
 {
-    public class CustomerIndex : ICustomMapper
+    public class CustomerIndex: Infra.Shared.Cqrs.Command.Command, ICustomMapper
 
     {
         public Guid Id { get; set; }
@@ -23,7 +23,8 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
 
 
 
-            cfg.CreateMap<CustomerIndex, Domain.Models.Customer>();
+            cfg.CreateMap<CustomerIndex, Domain.Models.Customer>()
+                .ForMember(d => d.FirstName, o => o.MapFrom(s => s.Name));
             //.ConstructUsing(x => new Domain.Models.Customer(
             //    x.FirstName, x.LastName, x.Email, x.BirthDate));
 

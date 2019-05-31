@@ -1,3 +1,34 @@
-<p>
-  customers2 works!
-</p>
+<h2>Editable List</h2>
+
+<table mat-table
+       [dataSource]="customers" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="{{column.viewPropCamelCase}}" *ngFor="let column of displayedColumns">
+    <th mat-header-cell *matHeaderCellDef> <span class="headCell" (click)="orderBy(column.viewProp)">{{column.displayProp}}</span>  </th>
+    <td mat-cell *matCellDef="let element"> 
+        <app-edit-inline [data]='element[column.viewPropCamelCase]' (focusOut)='saveCost(element.id, column.modelProp, $event)'></app-edit-inline>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" >
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+<mat-paginator [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="pageChanged($event)">
+</mat-paginator>

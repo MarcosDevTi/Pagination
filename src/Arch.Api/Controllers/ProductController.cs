@@ -17,7 +17,7 @@ namespace Arch.Api.Controllers
         }
 
         [HttpGet, Route("v1/public/list")]
-        public HttpResponseMessage ProductsDropDownList(GetProductsDropDownList getProductsDw)
+        public HttpResponseMessage ProductsDropDownList([FromUri]GetProductsDropDownList getProductsDw)
         {
             getProductsDw = new GetProductsDropDownList();
             var result = _processor.Get(getProductsDw);

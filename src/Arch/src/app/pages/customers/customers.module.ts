@@ -15,8 +15,10 @@ import { SatPopoverModule } from '@ncstate/sat-popover';
 
 import { CustomerHistoryComponent } from './shared/customer-history/customer-history.component';
 import { CustomerService } from './shared/customer.service';
-import { InlineEditComponent } from './inline-edit/inline-edit.component';
 import { Customers2Component } from './customers2/customers2.component';
+import { EditInlineComponent } from './edit-inline/edit-inline.component';
+import { AutofocusDirective } from './autofocus.directive';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,11 +27,13 @@ import { Customers2Component } from './customers2/customers2.component';
     CustomerEditComponent,
     CustomerCreateComponent,
     CustomerHistoryComponent,
-    InlineEditComponent,
-    Customers2Component ],
+    Customers2Component,
+    EditInlineComponent,
+    AutofocusDirective],
   imports: [
     CommonModule,
     CustomersRoutingModule,
+    FormsModule,
 
     SatPopoverModule,
 

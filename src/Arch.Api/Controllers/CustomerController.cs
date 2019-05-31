@@ -1,10 +1,12 @@
 ﻿using Arch.Cqrs.Client.Command.Customer;
+using Arch.Cqrs.Client.Command.Customer.Generics;
 using Arch.Cqrs.Client.Paging;
 using Arch.Cqrs.Client.Query.Customer.Models;
 using Arch.Cqrs.Client.Query.Customer.Queries;
 using Arch.Domain.Core.DomainNotifications;
 using Arch.Domain.Event;
 using Arch.Infra.Shared.Cqrs;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Net;
@@ -75,23 +77,16 @@ namespace Arch.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.Created);
         }
-        [HttpPut, Route("")]
-        public HttpResponseMessage Edit(UpdateCustomer customer)
+        [HttpPost, Route("update")]
+        public HttpResponseMessage Edit(ListUpdate obj)
         {
-            if (!ModelState.IsValid) return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
 
-
-            if (customer == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-
-            _processor.Send(customer);
+            _processor.Send(obj);
             if (_notifications.HasNotifications())
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, _notifications.GetNotifications());
             }
-            return Request.CreateResponse(HttpStatusCode.OK, customer);
+            return Request.CreateResponse(HttpStatusCode.OK, obj);
         }
 
 

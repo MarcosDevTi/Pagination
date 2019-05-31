@@ -13,10 +13,5 @@ namespace Arch.Cqrs.Client.Command.Cart
         public int Value { get; private set; }
 
         public Guid OrderItemId { get; private set; }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
     }
 }

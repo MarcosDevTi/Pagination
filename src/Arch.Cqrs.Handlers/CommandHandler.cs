@@ -37,9 +37,9 @@ namespace Arch.Cqrs.Handlers
 
         protected void ValidateCommand(Command cmd)
         {
-            if (cmd.IsValid()) return;
-            foreach (var error in cmd.ValidationResult.Errors)
-                AddNotification(new DomainNotification(cmd.Action, error.ErrorMessage));
+            //if (cmd.IsValid()) return;
+            //foreach (var error in cmd.ValidationResult.Errors)
+            //    AddNotification(new DomainNotification(cmd.Action, error.ErrorMessage));
         }
 
         protected void Commit(Event evet)

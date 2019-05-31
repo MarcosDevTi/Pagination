@@ -11,10 +11,5 @@ namespace Arch.Cqrs.Client.Command.Customer
         }
 
         public Guid Id { get; set; }
-        public override bool IsValid()
-        {
-            ValidationResult = new DeleteCustomerValidation().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 }

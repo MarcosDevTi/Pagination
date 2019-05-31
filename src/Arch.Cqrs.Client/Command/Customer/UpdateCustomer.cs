@@ -23,12 +23,6 @@ namespace Arch.Cqrs.Client.Command.Customer
             AggregateId = id;
         }
 
-        public override bool IsValid()
-        {
-            ValidationResult = new UpdateCustomerValidation().Validate(this);
-            return ValidationResult.IsValid;
-        }
-
         public void Map(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<UpdateCustomer, Domain.Models.Customer>()

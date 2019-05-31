@@ -102,7 +102,8 @@ namespace Arch.Cqrs.Client.Paging
                     ViewPropCamelCase = ConvertToCamelCase(view),
                     ViewProp = view,
                     ModelProp = ((dynamic)_.src).Name,
-                    DisplayProp = display
+                    DisplayProp = display,
+                    AssemblyViewModel = typeof(T2).FullName
                 };
             }).ToList();
 

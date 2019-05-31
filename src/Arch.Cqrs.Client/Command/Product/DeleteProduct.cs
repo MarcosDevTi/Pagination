@@ -9,10 +9,5 @@ namespace Arch.Cqrs.Client.Command.Product
         {
             Id = id;
         }
-        public override bool IsValid()
-        {
-            ValidationResult = new DeleteProductValidation().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 }

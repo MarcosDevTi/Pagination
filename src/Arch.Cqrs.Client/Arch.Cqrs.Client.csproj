@@ -67,10 +67,12 @@
     <Compile Include="Command\Customer\DeleteCustomer.cs" />
     <Compile Include="Command\Customer\UpdateAddress.cs" />
     <Compile Include="Command\Customer\UpdateCustomer.cs" />
+    <Compile Include="Command\Customer\UpdateCustomerOfList.cs" />
     <Compile Include="Command\Customer\Validation\CreateCustomerValidation.cs" />
     <Compile Include="Command\Customer\Validation\CustomerCommandValidation.cs" />
     <Compile Include="Command\Customer\Validation\DeleteCustomerValidation.cs" />
     <Compile Include="Command\Customer\Validation\UpdateCustomerValidation.cs" />
+    <Compile Include="Command\Generics\ListUpdate.cs" />
     <Compile Include="Command\OrderItem\CreateOrderItem.cs" />
     <Compile Include="Command\OrderItem\DeleteOrderItem.cs" />
     <Compile Include="Command\OrderItem\UpdateOrderItem.cs" />

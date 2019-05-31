@@ -16,11 +16,11 @@ namespace Arch.Cqrs.Client.Command.Customer
         [MaxLength(100)]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "The E-mail is Required")]
+        //[Required(ErrorMessage = "The E-mail is Required")]
         [EmailAddress]
         [DisplayName("E-mail")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "The BirthDate is Required")]
+        //[Required(ErrorMessage = "The BirthDate is Required")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         [DisplayName("Birth Date")]

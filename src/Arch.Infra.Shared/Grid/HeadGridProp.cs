@@ -6,5 +6,7 @@
         public string ViewProp { get; set; }
         public string ModelProp { get; set; }
         public string DisplayProp { get; set; }
+        public string AssemblyViewModel { get; set; }
+        public string AssemblyModel { get; set; }
     }
 }

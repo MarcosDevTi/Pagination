@@ -52,6 +52,23 @@ export class CustomerService {
     );
   }
 
+  updateItemList(id, newObj, attr) {
+    const url = 'http://localhost:50005/api/customers/update';
+    console.log('url', url);
+
+    const customer = {
+      id,
+      key: attr,
+      value: newObj
+    }
+
+console.log(customer)
+    return this.http.post(url, customer).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToCustomer)
+    );
+  }
+
   update(customer: Customer): Observable<Customer> {
     const url = `${this.apiPath}/${customer.id}`;
     return this.http.put(url, customer).pipe(

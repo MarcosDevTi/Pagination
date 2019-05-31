@@ -16,12 +16,6 @@ namespace Arch.Cqrs.Client.Command.Product
             Price = price;
         }
 
-        public override bool IsValid()
-        {
-            ValidationResult = new UpdateProductValidation().Validate(this);
-            return ValidationResult.IsValid;
-        }
-
         public void Map(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<UpdateProduct, Domain.Models.Product>()

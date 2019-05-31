@@ -13,11 +13,5 @@ namespace Arch.Cqrs.Client.Command.Product
             Description = description;
             Price = price;
         }
-
-        public override bool IsValid()
-        {
-            ValidationResult = new CreateProductValidation().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 }

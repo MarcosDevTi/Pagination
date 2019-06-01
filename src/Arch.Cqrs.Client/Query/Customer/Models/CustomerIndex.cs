@@ -35,8 +35,12 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
     {
         public override void Configuration(GridFluent<CustomerIndex> builder)
         {
-            builder.DisplayName(_ => _.Name, "Prémon")
-                .DisplayName(_ => _.BirthDate, "Date de Naissance");
+            //builder.DisplayName(_ => _.Name, "Prémon")
+            //    .DisplayName(_ => _.BirthDate, "Date de Naissance");
+            builder.AddMemberInGrid(_ => _.Email, true)
+                .AddMemberInGrid(_ => _.Name, true, "Nom")
+                .AddMemberInGrid(_ => _.BirthDate, false, "Date de Naissance");
+               
         }
     }
 }

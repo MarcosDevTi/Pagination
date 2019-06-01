@@ -52,18 +52,12 @@ export class CustomerService {
     );
   }
 
-  updateItemList(id, newObj, attr) {
+  updateItemList(objUpdate) {
     const url = 'http://localhost:50005/api/customers/update';
     console.log('url', url);
 
-    const customer = {
-      id,
-      key: attr,
-      value: newObj
-    }
-
-console.log(customer)
-    return this.http.post(url, customer).pipe(
+console.log(objUpdate)
+    return this.http.post(url, objUpdate).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomer)
     );
@@ -86,7 +80,7 @@ console.log(customer)
   }
 
   private jsonDataToCustomers(jsonData): Grid<Customer> {
-    
+
     const customers: Customer[] = [];
     jsonData.items.forEach(element => customers.push(element as Customer));
     const head = jsonData.headGrid;

@@ -8,6 +8,7 @@ namespace Arch.Infra.Shared.EventSourcing
     public abstract class SourceFluent<T>: SourceTypeBuilder<T> where T: class
     {
         public List<MemberInfo> Members;
+        public List<MemberInfo> MembersNotEditables;
         public Dictionary<MemberInfo, string> MembersDisplayName;
         public void AddMember(MemberInfo member)
         {
@@ -15,10 +16,15 @@ namespace Arch.Infra.Shared.EventSourcing
                 Members.Add(member);
         }
 
-        public void AddMember(MemberInfo member, string displayName)
+        private void AddMember(MemberInfo member, string displayName)
         {
             if (MembersDisplayName == null) MembersDisplayName = new Dictionary<MemberInfo, string>();
             MembersDisplayName.Add(member, displayName);
+        }
+
+        private void AddMemberNotEditable(MemberInfo member)
+        {
+            MembersNotEditables.Add(member);
         }
 
         public SourceFluent<T> DisplayName<TProperty>(Expression<Func<T, TProperty>> property, string displayName)
@@ -28,6 +34,13 @@ namespace Arch.Infra.Shared.EventSourcing
         }
 
         public SourceFluent<T> Ignore<TProperty>(params Expression<Func<T, TProperty>>[] expression)
+        {
+            foreach (var exp in expression)
+                AddMember(exp.GetMember());
+            return this;
+        }
+
+        public SourceFluent<T> NotEditable<TProperty>(params Expression<Func<T, TProperty>>[] expression)
         {
             foreach (var exp in expression)
                 AddMember(exp.GetMember());

@@ -8,5 +8,6 @@
         public string DisplayProp { get; set; }
         public string AssemblyViewModel { get; set; }
         public string AssemblyModel { get; set; }
+        public bool Editable { get; set; }
     }
 }

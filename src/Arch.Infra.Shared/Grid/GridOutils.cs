@@ -7,7 +7,7 @@ namespace Arch.Infra.Shared.Grid
 {
     public class GridOutils
     {
-        public static (string original, string display)[] GetHeadGenericGrid(Type type)
+        public static (string memberName, bool editable, string displayName)[] GetHeadGenericGrid(Type type)
         {
             var tipoGen = typeof(GridFluent<>).MakeGenericType(type);
 
@@ -21,8 +21,8 @@ namespace Arch.Infra.Shared.Grid
             var entityType = (dynamic)Activator.CreateInstance(map);
             entityType.Configuration(entityType);
 
-            var membersName = ((Dictionary<MemberInfo, string>)entityType.MembersDisplayName)
-                .Select(_ => (_.Key.Name, _.Value));
+            var membersName = ((List<(string memberName, bool editable, string displayName)>)entityType.MembersDisplayName)
+                .Select(_ => (_.memberName, _.editable, _.displayName));
 
             return membersName.ToArray();
         }

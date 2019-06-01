@@ -11,7 +11,6 @@ namespace Arch.Cqrs.Client.Command.Customer.Generics
         public Guid Id { get; set; }
         public string Key { get; set; }
         public dynamic Value { get; set; }
-        public string AssemblyViewModel { get; set; }
         public string AssemblyModel { get; set; }
     }
 }

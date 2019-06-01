@@ -6,7 +6,7 @@ namespace Arch.Domain.Models
     {
         public override void Configuration(SourceFluent<Customer> builder)
         {
-            //builder.Ignore(_ => _.Email);
+            //builder.Ignore(_ => _.EmailAddress);
             builder
                 .Ignore(_ => _.BirthDate)
                 .DisplayName(_ => _.FirstName, "Prenom")

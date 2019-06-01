@@ -4,6 +4,7 @@ using Arch.Infra.Shared.Cqrs.Command;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -24,7 +25,15 @@ namespace Arch.Cqrs.Handlers.Generic
         {
             var typeModel = typeof(Domain.Models.Customer).Assembly.GetType(command.AssemblyModel);
             var objDatabase = _architectureContext.Set(typeModel).Find(command.Id);
+            PropertyInfo prop = objDatabase.GetType().GetProperty(command.Key, BindingFlags.Public | BindingFlags.Instance);
 
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(objDatabase, command.Value, null);
+            }
+
+            _architectureContext.Entry(objDatabase).State = EntityState.Modified;
+            _architectureContext.SaveChanges();
         }
 
         private static IEnumerable<(PropertyInfo dest, PropertyInfo src)> GetSourceAndDest<T, T2>(PropertyInfo propViewModel)

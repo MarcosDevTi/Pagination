@@ -93,9 +93,17 @@ namespace Arch.Cqrs.Client.Paging
             var head = GetSourceAndDest<T, T2>().Select(_ =>
             {
                 var view = _.dest.Name;
-                var getDisplay = listDisplay.FirstOrDefault(d => d.original == view);
+                var getDisplay = listDisplay.FirstOrDefault(d => d.memberName == view);
 
-                var display = listDisplay.Any(d => d.original == view) ? getDisplay.display : view;
+                string display;
+                if(listDisplay.Any(d => d.memberName == view) && getDisplay.displayName != null)
+                {
+                    display = getDisplay.displayName;
+                }
+                else
+                {
+                    display = view;
+                }  
 
                 return new HeadGridProp
                 {
@@ -103,7 +111,9 @@ namespace Arch.Cqrs.Client.Paging
                     ViewProp = view,
                     ModelProp = ((dynamic)_.src).Name,
                     DisplayProp = display,
-                    AssemblyViewModel = typeof(T2).FullName
+                    AssemblyViewModel = typeof(T2).FullName,
+                    AssemblyModel = typeof(T).FullName,
+                    Editable = getDisplay.editable
                 };
             }).ToList();
 

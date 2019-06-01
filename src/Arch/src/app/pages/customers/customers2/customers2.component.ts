@@ -53,7 +53,13 @@ export class Customers2Component implements OnInit {
     }
 
     saveCost(id, column, e: Event){
-      this.customerService.updateItemList(id, e, column).subscribe(_ => console.log(_))
+      const objUpdateList = {
+        id,
+        key: column.modelProp,
+        value: e,
+        AssemblyModel: column.assemblyModel
+      }
+      this.customerService.updateItemList(objUpdateList).subscribe(_ => console.log(_))
       console.log('event', e);
       console.log('id', id)
       console.log('column', column)
@@ -93,6 +99,7 @@ export class Customers2Component implements OnInit {
             this.displayedColumns = customers.head;
             this.columnsToDisplay = customers.head.map(x => x.viewPropCamelCase);
             this.length = customers.totalItems;
+            console.log(customers)
           },
           error => alert('Erro ao carregar a lista')
         );

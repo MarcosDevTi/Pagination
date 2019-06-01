@@ -8,18 +8,24 @@ namespace Arch.Infra.Shared.Grid
 {
     public abstract class GridFluent<T> : GridTypeBuilder<T> where T : class
     {
-        public Dictionary<MemberInfo, string> MembersDisplayName;
-        private void AddMember(MemberInfo member, string displayName)
+        public List<(string member, bool editable, string displayName)> MembersDisplayName;
+        private void AddMember(MemberInfo member, bool editable, string displayName)
         {
-            if (MembersDisplayName == null) MembersDisplayName = new Dictionary<MemberInfo, string>();
-            MembersDisplayName.Add(member, displayName);
+            if (MembersDisplayName == null) MembersDisplayName = new List<(string member, bool editable, string displayName)>();
+            MembersDisplayName.Add((member.Name, editable, displayName));
         }
 
-        public GridFluent<T> DisplayName<TProperty>(Expression<Func<T, TProperty>> property, string displayName)
+        public GridFluent<T> AddMemberInGrid<TProperty>(Expression<Func<T, TProperty>> property, bool editable, string displayName = null)
         {
-            AddMember(property.GetMember(), displayName);
+            AddMember(property.GetMember(), editable, displayName);
             return this;
         }
+
+        //public GridFluent<T> AddMemberInGrid<TProperty>(Expression<Func<T, TProperty>> property)
+        //{
+        //    AddMember(property.GetMember(), displayName);
+        //    return this;
+        //}
         public abstract void Configuration(GridFluent<T> builder);
     }
 }

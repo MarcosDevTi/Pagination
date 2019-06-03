@@ -88,7 +88,7 @@ data: any[]
         customers => {
           this.customers = customers.items;
           this.displayedColumns = customers.head;
-          this.columnsToDisplay = customers.head.map(x => x.viewPropCamelCase);
+          this.columnsToDisplay = customers.head.filter(_ => _.displayable).map(x => x.viewPropCamelCase);
 
           this.length = customers.totalItems;
         },

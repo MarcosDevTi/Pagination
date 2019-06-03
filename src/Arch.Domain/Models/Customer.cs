@@ -34,6 +34,7 @@ namespace Arch.Domain.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
+        public int Score { get; set; }
         public DateTime BirthDate { get; set; }
         public Address Address { get; set; }
         public ICollection<Order> Orders { get; set; }

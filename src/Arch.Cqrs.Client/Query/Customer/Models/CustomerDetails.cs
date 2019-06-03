@@ -52,7 +52,5 @@ namespace Arch.Cqrs.Client.Query.Customer.Models
                         x.Email,
                         x.BirthDate));
         }
-
-
     }
 }

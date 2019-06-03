@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>CSV Parameters Configuration</h1>
+<div class="content" mat-dialog-content>
+  <p>Select the properties for save on CSV file</p>
+ 
+  <mat-table  [dataSource]="data.itens" class="mat-elevation-z8">
+    
+      <ng-container matColumnDef="isSave">
+        <mat-header-cell *matHeaderCellDef> Save </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-checkbox [(ngModel)]="element.isSave"></mat-checkbox>
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="displayProp">
+        <mat-header-cell *matHeaderCellDef> Order By </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <mat-radio-group
+              [(ngModel)]="data.resultOrder">
+              <mat-radio-button [value]="element.modelProp">
+              </mat-radio-button>
+            </mat-radio-group>
+        </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="modelProp">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.displayProp}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    
+
+</div>
+<div class="btnFooter" mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="data">Confirm</button>
+</div>

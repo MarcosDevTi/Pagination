@@ -15,7 +15,7 @@ namespace Arch.Infra.Shared.Grid
             MembersDisplayName.Add((member.Name, editable, displayName));
         }
 
-        public GridFluent<T> AddMemberInGrid<TProperty>(Expression<Func<T, TProperty>> property, bool editable, string displayName = null)
+        public GridFluent<T> AddGridMember<TProperty>(Expression<Func<T, TProperty>> property, bool editable, string displayName = null)
         {
             AddMember(property.GetMember(), editable, displayName);
             return this;

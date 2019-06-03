@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -118,7 +118,9 @@
     <Compile Include="Query\Customer\Models\CustomerIndex.cs" />
     <Compile Include="Query\Customer\Queries\GetCustomerDetails.cs" />
     <Compile Include="Query\Customer\Queries\GetCustomerHistory.cs" />
+    <Compile Include="Query\Customer\Queries\GetCustomersCsv.cs" />
     <Compile Include="Query\Customer\Queries\GetCustomersIndex.cs" />
+    <Compile Include="Query\Generics\GetObjectsCsv.cs" />
     <Compile Include="Query\OrderItem\Models\Cart.cs" />
     <Compile Include="Query\OrderItem\Models\OrderItemIndex.cs" />
     <Compile Include="Query\OrderItem\Queries\GetCart.cs" />

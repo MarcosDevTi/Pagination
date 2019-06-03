@@ -21,13 +21,16 @@ using AutoMapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Arch.Domain.Core;
+using AutoMapper.QueryableExtensions;
 
 namespace Arch.Cqrs.Handlers.Customer
 {
     public class CustomerQueryHandler :
         IQueryHandler<GetCustomersIndex, PagedResult<CustomerIndex>>,
         IQueryHandler<GetCustomerDetails, CustomerDetails>,
-        IQueryHandler<GetCustomerHistory, IReadOnlyList<object>>
+        IQueryHandler<GetCustomerHistory, IReadOnlyList<object>>,
+        IQueryHandler<GetCustomersCsv, IEnumerable<CustomerIndex>>
     {
         private readonly ArchDbContext _architectureContext;
         private readonly EventSourcingContext _eventSourcingContext;
@@ -66,6 +69,12 @@ namespace Arch.Cqrs.Handlers.Customer
             ).ToList();
            
             return typeOriginal;
+        }
+
+        public IEnumerable<CustomerIndex> Handle(GetCustomersCsv query)
+        {
+            var result = _architectureContext.Customers.ProjectTo<CustomerIndex>().ToList();
+            return result;
         }
     }
 }

@@ -56,3 +56,20 @@ table {
   .headCell{
     cursor: pointer;
   }
+
+  #head {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #head button {
+    height: 40px;
+  }
+
+  .container {
+    margin: 20px;
+  }
+
+  app-edit-inline {
+    display: flex;
+  }

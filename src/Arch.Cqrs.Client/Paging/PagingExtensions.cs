@@ -89,7 +89,7 @@ namespace Arch.Cqrs.Client.Paging
         private static IEnumerable<HeadGridProp> GetHeadGridAndParameterSort<T, T2>()
         {
             var listDisplay = GridOutils.GetHeadGenericGrid(typeof(T2));
-
+            
             var head = GetSourceAndDest<T, T2>().Select(_ =>
             {
                 var view = _.dest.Name;
@@ -103,7 +103,7 @@ namespace Arch.Cqrs.Client.Paging
                 else
                 {
                     display = view;
-                }  
+                }
 
                 return new HeadGridProp
                 {
@@ -113,11 +113,28 @@ namespace Arch.Cqrs.Client.Paging
                     DisplayProp = display,
                     AssemblyViewModel = typeof(T2).FullName,
                     AssemblyModel = typeof(T).FullName,
-                    Editable = getDisplay.editable
+                    Editable = getDisplay.editable,
+                    Displayable = listDisplay.Any(__ => __.memberName == view),
+                    Type = _.src.GetMethod.ReturnType.Name
                 };
             }).ToList();
+            var result = OrderHeadGrid(head, listDisplay.Select(_ => _.memberName));
+            return result;
+        }
 
-            return head;
+        private static IEnumerable<HeadGridProp> OrderHeadGrid(List<HeadGridProp> listHead, IEnumerable<string> propsOrdered)
+        {
+            var listToOrder = new List<HeadGridProp>();
+            foreach(var item in propsOrdered)
+            {
+                var itemAdd = listHead.First(_ => _.ViewProp == item);
+                listToOrder.Add(itemAdd);
+            }
+            listHead.ForEach(_ =>
+            {
+                if (!listToOrder.Contains(_)) listToOrder.Add(_);
+            });
+            return listToOrder;
         }
 
         private static string ConvertToCamelCase(string name)

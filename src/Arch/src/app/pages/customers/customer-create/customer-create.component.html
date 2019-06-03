@@ -1,3 +1,29 @@
-<p>
-  customer-create works!
-</p>
+
+  <h1 class="title">Create Customer</h1>
+
+<form [formGroup]="customerForm" (submit)="submitForm()">
+  <div class="row">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="firstName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="lastName">
+    </mat-form-field>
+  </div>
+  
+  <div class="row">
+    <mat-form-field>
+      <input matInput placeholder="Birth Date" type="date" formControlName="birthDate">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Score" formControlName="score">
+    </mat-form-field>
+  </div>
+  
+
+  <button id="save" type="submit" mat-raised-button color="primary">Save Customer</button>
+</form>

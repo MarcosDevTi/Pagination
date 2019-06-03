@@ -9,7 +9,7 @@ import { Customers2Component } from './customers2/customers2.component';
 const routes: Routes = [
   {path: '', component: CustomerListComponent},
   // {path: ':id', component: CustomerEditComponent},
-  // {path: 'new', component: CustomerCreateComponent},
+  {path: 'new', component: CustomerCreateComponent},
   {path: 'customers2', component: Customers2Component}
 ];
 

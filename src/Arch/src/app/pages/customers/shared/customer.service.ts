@@ -4,19 +4,28 @@ import { Observable, throwError } from 'rxjs';
 import {map, catchError, flatMap} from 'rxjs/operators'
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Grid } from './grid';
+import { CsvParams } from 'src/app/components/csv-config/csv.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  private apiPath = 'http://localhost:50005/api/customers/v1/public/list';
+  private apiPath = 'http://localhost:50005/api/customers';
   constructor(private http: HttpClient) { }
 
-  getAll(custParams: CustomerParams): Observable<Grid<Customer>> {
-    const params = this.GetParams(custParams)
-    return this.http.get(this.apiPath, {params}).pipe(
+  getAllCsv(csvParams: CsvParams): Observable<Customer[]> {
+    const params = this.GetParams(csvParams);
+    return this.http.get(this.apiPath + '/v1/public/list/csv', {params}).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomers)
+    );
+  }
+
+  getAll(custParams: CustomerParams): Observable<Grid<Customer>> {
+    const params = this.GetParams(custParams);
+    return this.http.get(this.apiPath + '/v1/public/list', {params}).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToGridCustomers)
     );
   }
 
@@ -25,6 +34,7 @@ export class CustomerService {
     Object.keys(obj).forEach((item) => {
       params = params.set(item, obj[item]);
   });
+    console.log(params);
     return params;
   }
 
@@ -54,9 +64,6 @@ export class CustomerService {
 
   updateItemList(objUpdate) {
     const url = 'http://localhost:50005/api/customers/update';
-    console.log('url', url);
-
-console.log(objUpdate)
     return this.http.post(url, objUpdate).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomer)
@@ -79,7 +86,7 @@ console.log(objUpdate)
     )
   }
 
-  private jsonDataToCustomers(jsonData): Grid<Customer> {
+  private jsonDataToGridCustomers(jsonData): Grid<Customer> {
 
     const customers: Customer[] = [];
     jsonData.items.forEach(element => customers.push(element as Customer));
@@ -87,6 +94,12 @@ console.log(objUpdate)
     const totalItems = jsonData.totalNumberOfItems
     const grid = new Grid<Customer>(customers, head, totalItems);
     return grid;
+  }
+
+  private jsonDataToCustomers(jsonData): Customer[] {
+    const customers: Customer[] = [];
+    jsonData.forEach(element => customers.push(element as Customer));
+    return customers;
   }
   private jsonDataToCustomer(jsonData: any): Customer {
     return jsonData as Customer;

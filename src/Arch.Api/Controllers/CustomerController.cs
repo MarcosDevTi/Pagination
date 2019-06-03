@@ -3,6 +3,7 @@ using Arch.Cqrs.Client.Command.Customer.Generics;
 using Arch.Cqrs.Client.Paging;
 using Arch.Cqrs.Client.Query.Customer.Models;
 using Arch.Cqrs.Client.Query.Customer.Queries;
+using Arch.Cqrs.Client.Query.Generics;
 using Arch.Domain.Core.DomainNotifications;
 using Arch.Domain.Event;
 using Arch.Infra.Shared.Cqrs;
@@ -62,8 +63,27 @@ namespace Arch.Api.Controllers
             return response;
         }
 
+        [HttpGet, Route("v1/public/list/csv")]
+        public HttpResponseMessage ListCsv([FromUri] GetObjectsCsv customersCsv)
+        {
+
+            HttpResponseMessage response;
+            try
+            {
+                var result = _processor.Get(customersCsv);
+
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch(Exception e)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Server Error");
+            }
+
+            return response;
+        }
+
         [HttpPost, Route("")]
-        public HttpResponseMessage Post([FromBody]CreateCustomer customer)
+        public HttpResponseMessage Post(CreateCustomer customer)
         {
             _processor.Send(customer);
 

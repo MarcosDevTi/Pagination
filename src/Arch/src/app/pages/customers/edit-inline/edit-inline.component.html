@@ -1,4 +1,11 @@
-<div *ngIf='!editMode' (click)='editMode=true' class='cell'> {{ data }}</div>
+<div *ngIf='!editMode && type !== "DateTime"' (click)='editMode=true' class='cell'> {{ data }}</div>
+<div *ngIf='!editMode && type === "DateTime"' (click)='editMode=true' class='cell'> {{ data | date:'mediumDate'}}</div>
 
-<input *ngIf='editMode' (focusout)="onFocusOut()" (keydown.enter)='$event.target.blur()' [(ngModel)]='data' class='cellInput'
+<input *ngIf='editMode && type !== "DateTime"' (focusout)="onFocusOut()" (keydown.enter)='$event.target.blur()' [(ngModel)]='data' class='cellInput'
   appAutofocus  (keydown.enter)='$event.target.blur()' (focusout)="editMode=false">
+
+  <input *ngIf='editMode && type === "DateTime"' appAutofocus (keydown.enter)='$event.target.blur()' 
+      matInput [matDatepicker]="pickerAA" placeholder="Choose a date" [(ngModel)]="data"
+      (dateChange)="orgValueChange($event)">
+  <mat-datepicker-toggle *ngIf='editMode && type === "DateTime"'  matSuffix [for]="pickerAA"></mat-datepicker-toggle>
+  <mat-datepicker #pickerAA></mat-datepicker>

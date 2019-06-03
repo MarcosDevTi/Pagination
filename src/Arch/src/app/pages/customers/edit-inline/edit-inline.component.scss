@@ -13,11 +13,12 @@ $lightGray: #c8c8c8;
   }
 }
 
-.cellInput {
+.cellInput, .mat-input-element {
   border: 2px solid transparent;
   padding: 11px 15px;
-  width: 60%;
+  width: 100%;
   height: 100%;
-  padding-right: -1000px !important;
-  margin-right: -1000px !important;
+  // padding-right: -1000px !important;
+  // margin-right: -1000px !important;
 }
+

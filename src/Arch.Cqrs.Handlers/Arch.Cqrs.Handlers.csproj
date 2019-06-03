@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -68,7 +68,9 @@
     <Compile Include="Customer\CustomerCommandHandler.cs" />
     <Compile Include="Customer\CustomerQueryHandler.cs" />
     <Compile Include="DbContextExtensions.cs" />
+    <Compile Include="Generic\CsvQueryHandler.cs" />
     <Compile Include="Generic\ListCommandHandler.cs" />
+    <Compile Include="Generic\Repository.cs" />
     <Compile Include="OderItem\OderItemQueryHandler.cs" />
     <Compile Include="OderItem\OrderItemCommandHandler.cs" />
     <Compile Include="Order\OrderCommandHandler.cs" />

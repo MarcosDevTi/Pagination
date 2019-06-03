@@ -1,0 +1,24 @@
+form {
+    width: 80%;
+}
+
+.row {
+    margin-left: 10%;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: stretch;
+    width: 100%;
+} 
+mat-form-field{
+    width: 100%;
+    margin-right: 20px;
+}
+
+.title {
+    margin: 60px;
+}
+
+#save {
+    float: right;
+    font-size: 18px;
+}

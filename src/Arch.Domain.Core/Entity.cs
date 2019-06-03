@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Arch.Domain.Core
 {
-    public abstract class Entity
+    public abstract class Entity: ICloneable
     {
         public Guid Id { get; protected set; }
       
@@ -46,6 +46,11 @@ namespace Arch.Domain.Core
         public override string ToString()
         {
             return GetType().Name + " [Id=" + Id + "]";
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

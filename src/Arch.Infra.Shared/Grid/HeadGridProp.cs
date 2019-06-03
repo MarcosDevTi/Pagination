@@ -9,5 +9,7 @@
         public string AssemblyViewModel { get; set; }
         public string AssemblyModel { get; set; }
         public bool Editable { get; set; }
+        public bool Displayable { get; set; }
+        public string Type { get; set; }
     }
 }

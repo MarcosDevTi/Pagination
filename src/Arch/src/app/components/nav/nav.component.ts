@@ -14,9 +14,9 @@ export class NavComponent implements OnInit {
     {nom: 'Accueil', url: '', navItems: []},
     {nom: 'Customers', url: '/customers',
       navItems: [
-                  {nom: 'Customers', url: '/customers', navItems: []},
-                  {nom: 'Customers 2', url: '/customers/customers2', navItems: []},
-                  // {nom: 'New Customer', url: '/customers/new', navItems: []},
+                  {nom: 'Customers History', url: '/customers', navItems: []},
+                  {nom: 'Customers Editable', url: '/customers/customers2', navItems: []},
+                  {nom: 'New Customer', url: '/customers/new', navItems: []},
                 ]
     },
     {nom: 'Déclaration', url: '',

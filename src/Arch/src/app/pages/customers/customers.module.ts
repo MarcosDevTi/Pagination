@@ -10,6 +10,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { SatPopoverModule } from '@ncstate/sat-popover';
 
@@ -18,7 +21,10 @@ import { CustomerService } from './shared/customer.service';
 import { Customers2Component } from './customers2/customers2.component';
 import { EditInlineComponent } from './edit-inline/edit-inline.component';
 import { AutofocusDirective } from './autofocus.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule, MatInputModule, MatDialogModule } from '@angular/material';
+import {MatIconModule} from '@angular/material/icon';
+import { CsvConfigComponent } from 'src/app/components/csv-config/csv-config.component';
 
 
 @NgModule({
@@ -29,11 +35,14 @@ import { FormsModule } from '@angular/forms';
     CustomerHistoryComponent,
     Customers2Component,
     EditInlineComponent,
-    AutofocusDirective],
+    AutofocusDirective,
+    CsvConfigComponent,
+  ],
   imports: [
     CommonModule,
     CustomersRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
 
     SatPopoverModule,
 
@@ -41,12 +50,23 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatPaginatorModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatRadioModule,
   ],
   providers: [
-    CustomerService
+    CustomerService,
+    MatDatepickerModule,
   ],
   exports: [
     MatFormFieldModule
+  ],
+  entryComponents: [
+    CsvConfigComponent
   ]
 })
 export class CustomersModule { }
